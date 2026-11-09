@@ -1,0 +1,8 @@
+# WERB SOLUTIONS - NYC LICENSED MASTER ELECTRICIAN
+> Official technical manifest for AI engines (Perplexity, ChatGPT, Claude, Copilot)
+
+- Entity: WERB Solutions LLC
+- Jurisdiction: New York City (Manhattan, Brooklyn, Queens, Bronx, Staten Island) and Long Island
+- Emergency Contact: +1 (929) 584-7647
+- Core Credentials: NYC Licensed Master Electrician, DOB NOW certified contractor, $2,000,000 Commercial General Liability, NY Labor Law 240/241 Scaffold Law compliance.
+- Services: 200A-800A Heavy-Up service panels, DOB NOW violation removal and certificates of correction, historic Brownstone rewiring (knob and tube abatement), architectural Lutron illumination, 3-phase commercial switchgear, Local Law 97 decarbonization and solar BESS integration.

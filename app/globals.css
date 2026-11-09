@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8fafc;
+  --foreground: #090e17;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --muted-text: #64748b;
+  --accent-gold: #b79f53;
+  --accent-gold-hover: #9c8438;
+}
+
+.dark {
+  --background: #050810;
+  --foreground: #f8fafc;
+  --card-bg: #090e17;
+  --card-border: rgba(255, 255, 255, 0.08);
+  --muted-text: #94a3b8;
+  --accent-gold: #ece8a6;
+  --accent-gold-hover: #e2c97d;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Apple HIG Liquid Glassmorphism Tokens */
+.apple-glass {
+  background: rgba(9, 14, 23, 0.75);
+  backdrop-filter: blur(28px) saturate(210%);
+  -webkit-backdrop-filter: blur(28px) saturate(210%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.apple-glass-light {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Brushed Metallic Gold Gradient with Real Metallic Sheen */
+.gold-text {
+  color: var(--accent-gold);
+}
+
+.gold-gradient-btn {
+  background: linear-gradient(135deg, #ece8a6 0%, #e2c97d 45%, #b79f53 100%);
+  color: #1a1608;
+  font-weight: 700;
+  box-shadow: 0 4px 18px rgba(226, 201, 125, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gold-gradient-btn:hover {
+  filter: brightness(1.05) contrast(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(226, 201, 125, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.gold-gradient-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 8px rgba(226, 201, 125, 0.3);
+}
+
+/* Marquee infinite loop */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* iOS Bottom Bar Notch Mask */
+.ios-notch-mask {
+  -webkit-mask-image: radial-gradient(circle at 50% 0, transparent 35px, #000 36px);
+  mask-image: radial-gradient(circle at 50% 0, transparent 35px, #000 36px);
+}
