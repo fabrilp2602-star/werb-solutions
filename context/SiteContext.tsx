@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+import { Locale, TRANSLATIONS, TranslationDictionary } from "@/data/i18n";
+
 export interface SiteContentTexts {
   heroTagline: string;
   heroHeadline: string;
@@ -43,6 +45,9 @@ interface SiteContextType {
   theme: "dark" | "light";
   toggleTheme: () => void;
   setTheme: (t: "dark" | "light") => void;
+  locale: Locale;
+  setLocale: (l: Locale) => void;
+  t: TranslationDictionary;
   isAuthenticated: boolean;
   login: (u: string, p: string) => boolean;
   logout: () => void;
@@ -55,6 +60,9 @@ const SiteContext = createContext<SiteContextType>({
   theme: "dark",
   toggleTheme: () => {},
   setTheme: () => {},
+  locale: "en",
+  setLocale: () => {},
+  t: TRANSLATIONS.en,
   isAuthenticated: false,
   login: () => false,
   logout: () => {},
@@ -63,6 +71,7 @@ const SiteContext = createContext<SiteContextType>({
 export function SiteProvider({ children }: { children: React.ReactNode }) {
   const [texts, setTexts] = useState<SiteContentTexts>(DEFAULT_TEXTS);
   const [theme, setThemeState] = useState<"dark" | "light">("dark");
+  const [locale, setLocaleState] = useState<Locale>("en");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [mounted, setMounted] = useState(false);
 
@@ -77,8 +86,17 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
       if (savedTheme === "light" || savedTheme === "dark") {
         setThemeState(savedTheme);
       } else {
-        // Default to dark for NYC master luxury aesthetics
         setThemeState("dark");
+      }
+
+      // Read saved locale or URL search params
+      const searchParams = new URLSearchParams(window.location.search);
+      const urlLang = searchParams.get("lang") as Locale | null;
+      const savedLocale = localStorage.getItem("werb_locale") as Locale | null;
+      if (urlLang && (urlLang === "en" || urlLang === "es" || urlLang === "zh" || urlLang === "ru")) {
+        setLocaleState(urlLang);
+      } else if (savedLocale && (savedLocale === "en" || savedLocale === "es" || savedLocale === "zh" || savedLocale === "ru")) {
+        setLocaleState(savedLocale);
       }
 
       const authState = sessionStorage.getItem("werb_admin_auth");
@@ -172,8 +190,24 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
     } catch (e) {}
   };
 
+  const setLocale = (next: Locale) => {
+    setLocaleState(next);
+    try {
+      localStorage.setItem("werb_locale", next);
+      const url = new URL(window.location.href);
+      if (next === "en") {
+        url.searchParams.delete("lang");
+      } else {
+        url.searchParams.set("lang", next);
+      }
+      window.history.replaceState({}, "", url.toString());
+    } catch (e) {}
+  };
+
+  const t = TRANSLATIONS[locale] || TRANSLATIONS.en;
+
   return (
-    <SiteContext.Provider value={{ texts, updateTexts, resetTexts, theme, toggleTheme, setTheme, isAuthenticated, login, logout }}>
+    <SiteContext.Provider value={{ texts, updateTexts, resetTexts, theme, toggleTheme, setTheme, locale, setLocale, t, isAuthenticated, login, logout }}>
       {children}
     </SiteContext.Provider>
   );
@@ -182,3 +216,4 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
 export function useSite() {
   return useContext(SiteContext);
 }
+

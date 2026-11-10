@@ -15,6 +15,7 @@ import {
   Layers,
   PhoneCall
 } from "lucide-react";
+import { useSite } from "@/context/SiteContext";
 
 export interface HeroSlide {
   id: number;
@@ -141,8 +142,8 @@ const DEFAULT_STATS: StatItem[] = [
   { id: "experience", value: "15+", label: "Years Licensed NYC Practice" },
 ];
 
-/** Hook del Slider idéntico a Modulares GM: autoplay cada 5.5s con retención manual de 10s */
-export function useRail(length: number, { startAfter = 3000, every = 5500, holdMs = 10000 } = {}) {
+/** Hook del Slider con 10s para la primera diapositiva (quiénes somos) y 6s para las siguientes */
+export function useRail(length: number, { startAfter = 3000, holdMs = 12000 } = {}) {
   const [active, setActive] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [armed, setArmed] = useState(false);
@@ -155,12 +156,14 @@ export function useRail(length: number, { startAfter = 3000, every = 5500, holdM
 
   useEffect(() => {
     if (!armed || !playing) return;
-    const t = setInterval(() => {
+    // 10 segundos para la primera diapositiva (quiénes somos), 6 segundos para las demás
+    const currentDuration = active === 0 ? 10000 : 6000;
+    const t = setTimeout(() => {
       if (Date.now() < holdUntil.current) return;
       setActive((i) => (i + 1) % length);
-    }, every);
-    return () => clearInterval(t);
-  }, [armed, playing, length, every]);
+    }, currentDuration);
+    return () => clearTimeout(t);
+  }, [armed, playing, length, active]);
 
   const manual = (fn: (i: number) => number) => {
     holdUntil.current = Date.now() + holdMs;
@@ -232,7 +235,7 @@ export function AnimatedCounter({ value }: { value: string }) {
   return <span ref={elementRef}>{displayValue}</span>;
 }
 
-/** Rail de tarjetas de lo que viene (Patrón Modulares GM): primera tarjeta grande con 'SIGUIENTE' */
+/** Rail de tarjetas de lo que viene: tarjetas uniformes de lujo con NEXT INTAKE */
 export function HeroCardRail({
   items,
   active,
@@ -257,8 +260,8 @@ export function HeroCardRail({
             key={item.id}
             className={`relative shrink-0 overflow-hidden rounded-2xl border transition-all duration-700 ease-out animate-in fade-in slide-in-from-right-4 ${
               isNext
-                ? "h-[115px] w-[195px] lg:h-[135px] lg:w-[235px] border-[#e2c97d] shadow-xl shadow-[#b79f53]/20"
-                : "h-[75px] w-[65px] lg:h-[85px] lg:w-[75px] border-white/20 opacity-80 hover:opacity-100 hover:scale-105"
+                ? "h-[110px] w-[180px] lg:h-[125px] lg:w-[210px] border-[#e2c97d] shadow-xl shadow-[#b79f53]/25 ring-1 ring-[#e2c97d]/50"
+                : "h-[110px] w-[95px] lg:h-[125px] lg:w-[110px] border-white/20 opacity-80 hover:opacity-100 hover:scale-[1.03]"
             }`}
           >
             <button
@@ -271,14 +274,14 @@ export function HeroCardRail({
               src={item.imageUrl}
               alt=""
               fill
-              sizes={isNext ? "235px" : "75px"}
+              sizes={isNext ? "210px" : "110px"}
               className="object-cover transition-transform duration-700 hover:scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
             
             {isNext && (
-              <span className="absolute left-2.5 top-2.5 rounded-full border border-[#e2c97d]/40 bg-black/60 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-widest text-[#ece8a6] backdrop-blur-md">
-                SIGUIENTE
+              <span className="absolute left-2.5 top-2.5 rounded-full border border-[#e2c97d]/50 bg-black/75 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-widest text-[#ece8a6] backdrop-blur-md">
+                NEXT INTAKE
               </span>
             )}
             
@@ -375,8 +378,10 @@ export default function HeroSlider({
   isHomePage = false,
   phone = "+1 (929) 584-7647",
 }: HeroSliderProps) {
+  const { t } = useSite();
   const rail = useRail(HERO_SLIDES.length);
   const slide = HERO_SLIDES[rail.active];
+  const activeTranslatedSlide = t.slides[rail.active] || slide;
 
   return (
     <section className="relative z-10 select-none overflow-hidden bg-black text-white" aria-label="NYC Engineered Electrical Services">
@@ -410,51 +415,69 @@ export default function HeroSlider({
           {/* Left Narrative Column */}
           <div className="lg:col-span-7 space-y-4">
             
-            {/* Top Badge */}
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
-              <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
-              <span key={slide.id} className="truncate animate-in fade-in duration-700">
-                Class-A NYC DOB Master Electrician • Lic. #008472 • 5 Boroughs
-              </span>
-            </div>
+            {/* Dynamic Content Display (Vermilion-Style Splash/Welcome on Slide 0, Dynamic on Subsequent Slides) */}
+            {rail.active === 0 ? (
+              <div key="welcome-slide" className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
+                {/* Top Badge */}
+                <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
+                  <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
+                  <span>{t.heroWelcome.badge}</span>
+                </div>
 
-            {/* Google SEO Compliant Master H1 (58 chars, Apple typography, NO ugly serif) */}
-            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
-              Licensed NYC Master Electrician & Architectural Contracting
-            </h1>
+                {/* Canonical Master H1 for SEO */}
+                <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
+                  {t.heroWelcome.h1}
+                </h1>
 
-            {/* Who We Are (Identidad y Propuesta de Valor) */}
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl font-normal">
-              At <strong className="text-white font-semibold">WERB Solutions</strong>, we deliver certified high-voltage electrical engineering, urban clean energy, and luxury architectural renovations across NYC—backed by $2M COI and guaranteed DOB NOW™ sign-offs.
-            </p>
-
-            {/* Dynamic Slide Details */}
-            <div key={slide.id} className="pt-1 animate-in fade-in slide-in-from-bottom-2 duration-700 space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="rounded-md bg-[#e2c97d]/15 border border-[#e2c97d]/30 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#ece8a6]">
-                  Trade 0{slide.id} / 0{HERO_SLIDES.length}
-                </span>
-                <p className="font-sans text-base sm:text-lg font-bold text-white">
-                  {slide.title}
+                {/* Who We Are (Identidad de Empresa y COI) - Exclusivo de la primera diapositiva */}
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl font-normal">
+                  {t.heroWelcome.description}
                 </p>
+
+                {/* Trust Signals Strip */}
+                <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-[#ece8a6]">
+                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">⚡ 200A-800A Heavy-Up</span>
+                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">🛡️ $2,000,000 Active COI</span>
+                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">🏛️ DOB NOW™ Direct Filing</span>
+                </div>
               </div>
-              <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-slate-200">
-                {slide.description}
-              </p>
-              
-              {/* Feature pills with checkmarks */}
-              <ul className="flex flex-wrap gap-2 pt-1">
-                {slide.tags.map((tag) => (
-                  <li
-                    key={tag}
-                    className="animate-in fade-in slide-in-from-bottom-1 duration-500 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md"
-                  >
-                    <CheckCircle2 size={12} className="text-[#e2c97d]" />
-                    <span>{tag}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            ) : (
+              <div key={`slide-${slide.id}`} className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
+                {/* Discipline Tag */}
+                <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
+                  <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
+                  <span>{activeTranslatedSlide.badge}</span>
+                </div>
+
+                {/* Dynamic H1 tailored for each service scope */}
+                <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
+                  {activeTranslatedSlide.h1}
+                </h1>
+
+                {/* Subtitle / Focus */}
+                <p className="text-base sm:text-lg font-semibold text-[#e2c97d]">
+                  {activeTranslatedSlide.subtitle}
+                </p>
+
+                {/* Detailed Service Narrative */}
+                <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-slate-200">
+                  {activeTranslatedSlide.description}
+                </p>
+
+                {/* Feature pills with checkmarks */}
+                <ul className="flex flex-wrap gap-2 pt-1">
+                  {activeTranslatedSlide.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="animate-in fade-in slide-in-from-bottom-1 duration-500 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md"
+                    >
+                      <CheckCircle2 size={12} className="text-[#e2c97d]" />
+                      <span>{tag}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Mobile Category Switcher Pills */}
             <div className="flex flex-wrap gap-1.5 pt-2 md:hidden">
@@ -478,31 +501,31 @@ export default function HeroSlider({
               ))}
             </div>
 
-            {/* Dual CTAs side by side */}
-            <div className="pt-3 flex flex-col sm:flex-row gap-3">
+            {/* Dual CTAs side by side (Fixed uniform height, whitespace-nowrap to prevent multiline wrap) */}
+            <div className="pt-3 flex flex-wrap items-center gap-3">
               <a
                 href={isHomePage ? "#nyc-lead-wizard" : slide.ctaPrimary.href}
                 onClick={() => onSelectService && onSelectService(slide.title)}
-                className="gold-gradient-btn inline-flex h-13 items-center justify-center gap-2 rounded-xl px-7 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#1a1608] shadow-[0_0_35px_rgba(210,142,27,0.35)] transition hover:brightness-110 active:scale-95 cursor-pointer"
+                className="gold-gradient-btn inline-flex h-12 sm:h-13 min-h-[48px] whitespace-nowrap items-center justify-center gap-2 rounded-full px-6 sm:px-7 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-[0_0_25px_rgba(210,142,27,0.3)] transition hover:brightness-110 active:scale-95 cursor-pointer"
               >
-                <span>{isHomePage ? "Request Project Intake" : slide.ctaPrimary.text}</span>
-                <ArrowRight size={16} />
+                <span>{rail.active === 0 ? t.heroWelcome.ctaPrimary : activeTranslatedSlide.ctaPrimary}</span>
+                <ArrowRight size={15} className="shrink-0" />
               </a>
 
               <a
                 href={isHomePage ? `/services#${slide.serviceId}` : slide.ctaSecondary.href}
-                className="inline-flex h-13 items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/10 px-7 text-xs sm:text-sm font-bold uppercase tracking-wider text-white backdrop-blur-md hover:bg-white/20 active:scale-95 transition-all cursor-pointer"
+                className="inline-flex h-12 sm:h-13 min-h-[48px] whitespace-nowrap items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 sm:px-7 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md hover:bg-white/20 active:scale-95 transition-all cursor-pointer"
               >
-                <Layers size={16} />
-                <span>{isHomePage ? "Explore Service Scope" : slide.ctaSecondary.text}</span>
+                <Layers size={15} className="shrink-0" />
+                <span>{rail.active === 0 ? t.heroWelcome.ctaSecondary : activeTranslatedSlide.ctaSecondary}</span>
               </a>
 
               {isHomePage && (
                 <a
                   href={`tel:${phone.replace(/\D/g, "")}`}
-                  className="inline-flex h-13 items-center justify-center gap-2 rounded-xl border border-white/15 bg-black/40 px-5 text-xs sm:text-sm font-semibold text-slate-200 hover:text-white hover:border-[#e2c97d]/40 transition-colors cursor-pointer active:scale-95"
+                  className="hidden xl:inline-flex h-12 sm:h-13 min-h-[48px] whitespace-nowrap items-center justify-center gap-2 rounded-full border border-white/15 bg-black/40 px-5 text-[11px] sm:text-xs font-semibold text-slate-200 hover:text-white hover:border-[#e2c97d]/40 transition-colors cursor-pointer active:scale-95"
                 >
-                  <PhoneCall size={15} className="text-[#e2c97d]" />
+                  <PhoneCall size={14} className="text-[#e2c97d] shrink-0" />
                   <span>24/7: {phone}</span>
                 </a>
               )}

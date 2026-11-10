@@ -9,15 +9,18 @@ import {
   PhoneCall, 
   Menu, 
   X,
-  Sparkles
+  Sparkles,
+  Globe
 } from "lucide-react";
 import { useSite } from "@/context/SiteContext";
+import { Locale } from "@/data/i18n";
 
 export default function Header() {
-  const { texts, theme, toggleTheme } = useSite();
+  const { texts, theme, toggleTheme, locale, setLocale, t } = useSite();
   const isDark = theme === "dark";
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +29,13 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const languages: { code: Locale; label: string; flag: string }[] = [
+    { code: "en", label: "English", flag: "🇺🇸" },
+    { code: "es", label: "Español", flag: "🇪🇸" },
+    { code: "zh", label: "中文", flag: "🇨🇳" },
+    { code: "ru", label: "Русский", flag: "🇷🇺" },
+  ];
 
   return (
     <header className={`fixed inset-x-0 z-40 transition-all duration-300 ${
@@ -53,25 +63,64 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* Desktop Navigation Links (Always crisp white over hero & on scroll) */}
+        {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold tracking-wide">
           <Link href="/services" className="text-white/85 hover:text-white transition-colors">
-            All Services
+            {t.nav.services}
           </Link>
           <Link href="/#boroughs" className="text-white/85 hover:text-white transition-colors">
-            Boroughs & Coverage
+            {t.nav.boroughs}
           </Link>
           <Link href="/#compliance" className="text-white/85 hover:text-white transition-colors">
-            DOB & Insurances
+            {t.nav.compliance}
           </Link>
           <Link href="/#about" className="text-white/85 hover:text-white transition-colors">
-            About Firm
+            {t.nav.about}
           </Link>
         </nav>
 
-        {/* Action Controls (WhatsApp completely removed as strictly instructed) */}
+        {/* Action Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
           
+          {/* NYC 4-Language Selector Dropdown */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setLangMenuOpen(!langMenuOpen)}
+              aria-label="Select Language"
+              className="flex h-9 items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 sm:px-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-all active:scale-95 shadow-sm backdrop-blur-md cursor-pointer"
+            >
+              <Globe className="h-3.5 w-3.5 text-[#e2c97d]" />
+              <span className="font-mono text-[11px]">{locale.toUpperCase()}</span>
+            </button>
+
+            {langMenuOpen && (
+              <div className="absolute right-0 mt-2 w-36 rounded-2xl border border-white/15 bg-black/90 p-1.5 backdrop-blur-2xl shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    type="button"
+                    onClick={() => {
+                      setLocale(lang.code);
+                      setLangMenuOpen(false);
+                    }}
+                    className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-colors cursor-pointer ${
+                      locale === lang.code
+                        ? "bg-[#e2c97d]/20 text-[#ece8a6] font-bold"
+                        : "text-slate-300 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{lang.flag}</span>
+                      <span>{lang.label}</span>
+                    </span>
+                    {locale === lang.code && <span className="h-1.5 w-1.5 rounded-full bg-[#e2c97d]" />}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* Theme Toggle Button */}
           <button
             type="button"
@@ -97,7 +146,7 @@ export default function Header() {
             className="gold-gradient-btn hidden sm:inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-transform active:scale-95 shadow-md"
           >
             <Sparkles className="h-3.5 w-3.5" />
-            <span>Quote Project</span>
+            <span>{t.nav.quote}</span>
           </Link>
 
           {/* Mobile Hamburger Trigger */}

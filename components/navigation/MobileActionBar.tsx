@@ -27,7 +27,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
  */
 export default function MobileActionBar() {
   const pathname = usePathname();
-  const { texts } = useSite();
+  const { texts, t } = useSite();
   const phoneClean = texts.phone.replace(/\D/g, "") || "19295847647";
   const whatsappClean = texts.whatsappNumber.replace(/\D/g, "") || "19295847647";
 
@@ -41,13 +41,13 @@ export default function MobileActionBar() {
 
   const leftItems = [
     {
-      label: "Servicios",
+      label: t.mobileNav.services,
       href: "/services",
       icon: Zap,
       active: pathname === "/services",
     },
     {
-      label: "Zonas",
+      label: t.mobileNav.boroughs,
       href: "/#boroughs",
       icon: MapPin,
       active: false,
@@ -56,7 +56,7 @@ export default function MobileActionBar() {
 
   const rightItems = [
     {
-      label: "Cotizar",
+      label: t.mobileNav.quote,
       href: "/#nyc-lead-wizard",
       icon: Sparkles,
       active: false,
@@ -70,7 +70,7 @@ export default function MobileActionBar() {
           active: false,
         }
       : {
-          label: "Empresa",
+          label: t.mobileNav.firm,
           href: "/#about",
           icon: FileText,
           active: false,
@@ -79,7 +79,7 @@ export default function MobileActionBar() {
 
   return (
     <nav 
-      aria-label="Acciones rápidas móviles" 
+      aria-label="Mobile quick actions" 
       className="fixed inset-x-0 bottom-0 z-50 md:hidden select-none pointer-events-auto"
     >
       <div className="relative">
@@ -135,7 +135,7 @@ export default function MobileActionBar() {
                 <Phone className="h-6 w-6 fill-current text-[#050810]" aria-hidden />
               </span>
               <span className="whitespace-nowrap text-[10px] font-black leading-none tracking-wider text-[#e6b93e] uppercase drop-shadow">
-                24/7 Llamar
+                24/7 Call
               </span>
             </a>
           </li>

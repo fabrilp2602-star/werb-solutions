@@ -29,8 +29,11 @@ import {
   Building,
   Check,
   ChevronRight,
-  Bot
+  Bot,
+  Shield,
+  Award
 } from "lucide-react";
+import { useSite } from "@/context/SiteContext";
 
 export interface ServiceTypeGroup {
   id: string;
@@ -167,6 +170,7 @@ const SERVICE_GROUPS: ServiceTypeGroup[] = [
 ];
 
 export default function ServicesPage() {
+  const { t } = useSite();
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -215,36 +219,110 @@ export default function ServicesPage() {
       <Header />
       <MobileActionBar />
 
-      {/* 1. HERO SLIDER (EXACT MODULARES GM PATTERN: Background crossfade, Card Rail, Controls, and Animated Stats) */}
-      <HeroSlider onSelectService={(srvTitle) => setBookingService(srvTitle)} />
+      {/* 1. DEDICATED LUXURY SERVICES HEADER (No HeroSlider carousel on Services page) */}
+      <section className="relative isolate overflow-hidden bg-black text-white pt-32 pb-16 sm:pt-36 lg:pt-40 border-b border-white/10">
+        
+        {/* Background Image with Cinematic Dark Gradient */}
+        <div className="absolute inset-0 -z-20">
+          <Image
+            src="/media/service_panel_verification_desktop.webp"
+            alt="NYC Electrical Engineering"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover opacity-35 scale-105"
+          />
+        </div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#050810] via-black/85 to-black/60" />
+        <div className="absolute inset-0 -z-10 bg-radial-vignette opacity-80" />
 
-      {/* 2. REAL-TIME SEARCH & CATEGORY JUMP FILTER BAR */}
-      <div className="border-b border-slate-200 dark:border-white/10 bg-white/80 dark:bg-[#070b12]/80 backdrop-blur-xl py-4 sticky top-16 z-20 shadow-sm transition-colors">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div className="relative w-full md:max-w-md">
-            <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search 200A panels, rooftop solar, EV chargers, drywall..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black/40 pl-10 pr-4 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-[#b79f53] focus:outline-none transition-all shadow-sm"
-            />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+          
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#e2c97d]/40 bg-black/70 px-4 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-lg mb-4">
+            <Sparkles size={13} className="text-[#e2c97d]" />
+            <span>{t.servicesPage.badge}</span>
           </div>
 
-          {/* Quick Jump Category Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 text-xs">
-            <a href="#high-voltage-systems" className="shrink-0 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-700 dark:text-slate-300 hover:border-[#b79f53] hover:text-[#b79f53] transition-all">
-              ⚡ 01. High-Voltage
+          {/* Master H1 for Services Page */}
+          <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] max-w-4xl drop-shadow-md">
+            {t.servicesPage.h1}
+          </h1>
+
+          {/* Narrative Subtitle */}
+          <p className="mt-4 text-sm sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+            {t.servicesPage.subtitle}
+          </p>
+
+          {/* Highlights Metrics Strip */}
+          <div className="mt-8 flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4 text-xs font-mono">
+            <div className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-3.5 py-2 backdrop-blur-md text-slate-200">
+              <ShieldCheck className="h-4 w-4 text-[#e2c97d]" />
+              <span>DOB NOW™ Direct Sign-Offs</span>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-3.5 py-2 backdrop-blur-md text-slate-200">
+              <Award className="h-4 w-4 text-[#e2c97d]" />
+              <span>$2M Commercial General Liability COI</span>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-3.5 py-2 backdrop-blur-md text-slate-200">
+              <Clock className="h-4 w-4 text-[#e2c97d]" />
+              <span>&lt;45m Rapid Manhattan Dispatch</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 2. REAL-TIME SEARCH & CATEGORY JUMP FILTER BAR (Luxury Apple Glassmorphic Bar) */}
+      <div className="border-b border-slate-200/80 dark:border-white/10 bg-white/85 dark:bg-[#070b12]/90 backdrop-blur-2xl py-3.5 sticky top-16 z-20 shadow-lg shadow-black/5 dark:shadow-black/40 transition-all">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-3">
+          
+          {/* Search Box with dynamic count */}
+          <div className="relative w-full md:max-w-md">
+            <Search className="absolute left-3.5 top-3 h-4 w-4 text-[#e2c97d]" />
+            <input
+              type="text"
+              placeholder={t.servicesPage.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-full border border-slate-300/80 dark:border-white/15 bg-white/90 dark:bg-black/60 pl-10 pr-24 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-[#e2c97d] focus:ring-2 focus:ring-[#e2c97d]/20 focus:outline-none transition-all shadow-inner"
+            />
+            {searchQuery && (
+              <span className="absolute right-3.5 top-2.5 rounded-full bg-[#e2c97d]/20 px-2 py-0.5 text-[10px] font-mono font-bold text-[#b79f53] dark:text-[#ece8a6]">
+                {filteredGroups.reduce((acc, g) => acc + g.services.length, 0)} {t.servicesPage.results}
+              </span>
+            )}
+          </div>
+
+          {/* Quick Jump Category Pills with Luxury Apple Glow */}
+          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 text-xs no-scrollbar">
+            <a
+              href="#high-voltage-systems"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100/80 dark:bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold text-slate-800 dark:text-slate-200 hover:border-[#e2c97d] hover:bg-[#e2c97d]/10 hover:text-[#b79f53] dark:hover:text-[#ece8a6] transition-all active:scale-95 shadow-sm"
+            >
+              <Zap size={13} className="text-[#e2c97d]" />
+              <span>{t.servicesPage.highVoltage}</span>
             </a>
-            <a href="#clean-energy" className="shrink-0 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-700 dark:text-slate-300 hover:border-[#b79f53] hover:text-[#b79f53] transition-all">
-              ☀️ 02. Solar & EV
+            <a
+              href="#clean-energy"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100/80 dark:bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold text-slate-800 dark:text-slate-200 hover:border-[#e2c97d] hover:bg-[#e2c97d]/10 hover:text-[#b79f53] dark:hover:text-[#ece8a6] transition-all active:scale-95 shadow-sm"
+            >
+              <Sun size={13} className="text-[#e2c97d]" />
+              <span>{t.servicesPage.solarEv}</span>
             </a>
-            <a href="#architectural-construction" className="shrink-0 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1 text-[11px] font-semibold text-slate-700 dark:text-slate-300 hover:border-[#b79f53] hover:text-[#b79f53] transition-all">
-              🏗️ 03. Construction
+            <a
+              href="#architectural-construction"
+              className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/15 bg-slate-100/80 dark:bg-white/[0.07] px-3.5 py-1.5 text-[11px] font-semibold text-slate-800 dark:text-slate-200 hover:border-[#e2c97d] hover:bg-[#e2c97d]/10 hover:text-[#b79f53] dark:hover:text-[#ece8a6] transition-all active:scale-95 shadow-sm"
+            >
+              <Hammer size={13} className="text-[#e2c97d]" />
+              <span>{t.servicesPage.construction}</span>
             </a>
-            <a href="#ai-booking-calendar" className="shrink-0 rounded-full border border-[#b79f53]/40 bg-[#e2c97d]/15 px-3 py-1 text-[11px] font-bold text-[#b79f53] dark:text-[#ece8a6] hover:brightness-110 transition-all">
-              🗓️ AI Calendar
+            <a
+              href="#ai-booking-calendar"
+              className="gold-gradient-btn shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[11px] font-bold text-[#1a1608] shadow-[0_0_20px_rgba(210,142,27,0.35)] transition-all hover:brightness-110 active:scale-95"
+            >
+              <Calendar size={13} />
+              <span>{t.servicesPage.aiCalendar}</span>
             </a>
           </div>
         </div>

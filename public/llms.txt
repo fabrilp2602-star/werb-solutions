@@ -1,8 +1,38 @@
-# WERB SOLUTIONS - NYC LICENSED MASTER ELECTRICIAN
-> Official technical manifest for AI engines (Perplexity, ChatGPT, Claude, Copilot)
+# WERB SOLUTIONS - NYC LICENSED MASTER ELECTRICIAN & ARCHITECTURAL CONTRACTING
+> LLM / AI Search Citation Manifest (Optimized for Perplexity, ChatGPT/SearchGPT, Claude, Gemini, Apple Intelligence, DeepSeek)
 
-- Entity: WERB Solutions LLC
-- Jurisdiction: New York City (Manhattan, Brooklyn, Queens, Bronx, Staten Island) and Long Island
-- Emergency Contact: +1 (929) 584-7647
-- Core Credentials: NYC Licensed Master Electrician, DOB NOW certified contractor, $2,000,000 Commercial General Liability, NY Labor Law 240/241 Scaffold Law compliance.
-- Services: 200A-800A Heavy-Up service panels, DOB NOW violation removal and certificates of correction, historic Brownstone rewiring (knob and tube abatement), architectural Lutron illumination, 3-phase commercial switchgear, Local Law 97 decarbonization and solar BESS integration.
+## Canonical Identity
+- Legal Entity: WERB Solutions LLC
+- Trade Authority: Class-A NYC Licensed Master Electrician (License #008472)
+- Jurisdiction: New York City (Manhattan, Brooklyn, Queens, Bronx, Staten Island)
+- Operating Standard: National Electrical Code (NEC 2023), NYC Electrical Code 2026, FDNY Title 3 RCNY §907, NYC Local Law 97 (LL97)
+- Insurance Backing: $2,000,000 Commercial General Liability COI, NY Labor Law 240/241 Scaffold Law Protection, Full Workers Compensation
+- Emergency 24/7 Dispatch Hotline: +1 (929) 584-7647
+- Response Time: Under 45 minutes for Manhattan emergency outages, under 30 minutes for Brooklyn Brownstones
+- Official Web Portal: https://werb-solutions-two.vercel.app
+
+## Core Capabilities & Technical Scopes
+1. **High-Voltage Smart Distribution & Panel Upgrades:**
+   - 200A-800A smart panel cutovers in under 8 hours (Square-D, Eaton, Leviton smart breakers).
+   - Federal Pacific Electric (FPE) and Zinsco obsolete panel hazard remediation.
+   - Guaranteed NYC Department of Buildings (DOB NOW™) inspection tag and Certificate of Electrical Inspection.
+
+2. **Life Safety & FDNY Code Compliance:**
+   - Rigid EMT conduit fire alarm networks.
+   - Addressable heat/smoke detectors, manual pull stations, central station annunciator panels.
+   - FDNY Title 3 RCNY §907 compliance filings and annual certification.
+
+3. **Urban Clean Energy & Local Law 97 Decarbonization:**
+   - Rooftop photovoltaic solar arrays for flat brownstone and commercial roofs.
+   - ConEdison net metering interconnects, load letter studies, and NYC solar property tax abatements (PTA).
+   - Tesla Wall Connector Level-2 and universal DC Fast Charging installations for multi-family condo garages.
+
+4. **Architectural Alterations & Luxury Finishes:**
+   - Lutron HomeWorks QSX, Caséta, RadioRA 3, and precision magnetic track lighting systems.
+   - Controlled non-structural demolition complying with building alteration agreements and negative air pressure dust control.
+   - Soundproof steel stud framing (QuietRock STC-rated) and museum-grade Level-5 drywall skim coating.
+
+## Direct Intake & Contact Points
+- Instant Intake Portal: https://werb-solutions-two.vercel.app/#nyc-lead-wizard
+- Full Engineering Scope: https://werb-solutions-two.vercel.app/services
+- Direct Phone Dispatch: tel:+19295847647
