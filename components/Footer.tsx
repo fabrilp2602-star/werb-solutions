@@ -21,13 +21,13 @@ export default function Footer() {
           
           {/* Col 1: Brand & Backing */}
           <div className="space-y-2">
-            <div className="relative h-8 w-36">
+            <div className="relative h-10 w-44">
               <Image
-                src="/media/logo_navbar.webp"
+                src="/media/legacy_logo_white.webp"
                 alt="WERB Solutions"
                 fill
-                sizes="144px"
-                className="object-contain object-left drop-shadow-sm"
+                sizes="176px"
+                className="object-contain object-left drop-shadow-sm brightness-105"
               />
             </div>
             <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">

@@ -1,16 +1,28 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Zap, ShieldCheck } from "lucide-react";
 import { useSite } from "@/context/SiteContext";
 
 export default function Marquee() {
   const { texts } = useSite();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (!texts.marqueeEnabled) return null;
 
   return (
-    <div className="fixed top-0 inset-x-0 z-50 h-8 overflow-hidden border-b border-white/10 bg-black/90 backdrop-blur-md text-slate-200 text-xs py-1.5 select-none">
+    <div className={`fixed top-0 inset-x-0 z-50 h-8 overflow-hidden border-b border-white/10 bg-black/90 backdrop-blur-xl text-slate-200 text-xs py-1.5 select-none transition-all duration-300 ease-out ${
+      scrolled ? "-translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"
+    }`}>
+
       <div className="animate-marquee flex items-center whitespace-nowrap">
         <div className="flex items-center gap-8 px-4">
           <span className="flex items-center gap-2 font-mono font-semibold text-[#e6b93e]">

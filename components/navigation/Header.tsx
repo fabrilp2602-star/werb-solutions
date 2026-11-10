@@ -34,43 +34,19 @@ export default function Header() {
         : "top-0"
     } ${
       scrolled 
-        ? "bg-black/80 dark:bg-[#050810]/90 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2 sm:py-2.5" 
+        ? "bg-black/75 dark:bg-[#050810]/85 backdrop-blur-2xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] py-2.5" 
         : "bg-transparent border-b border-transparent py-3 sm:py-4"
     }`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
-        {/* MOBILE BRAND (< md): ONLY logo navbar.webp */}
-        <Link href="/" className="flex md:hidden items-center group py-0.5" aria-label="WERB Solutions Home">
-          <div className="relative h-10 w-36 xs:w-40">
+        {/* Brand: Single clean logo with complete lettering */}
+        <Link href="/" className="flex items-center group py-0.5" aria-label="WERB Solutions NYC">
+          <div className="relative h-10 w-44 sm:w-48 transition-transform duration-200 group-hover:scale-[1.02]">
             <Image
               src="/media/logo_navbar.webp"
               alt="WERB Solutions"
               fill
-              sizes="160px"
-              className="object-contain object-left drop-shadow-md"
-              priority
-            />
-          </div>
-        </Link>
-
-        {/* DESKTOP BRAND (>= md): logo.webp chikito + logo navbar.webp a la derecha */}
-        <Link href="/" className="hidden md:flex items-center gap-3 group py-0.5" aria-label="WERB Solutions NYC">
-          <div className="relative h-9 w-9 flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
-            <Image
-              src="/media/logo.webp"
-              alt="WERB Icon"
-              fill
-              sizes="36px"
-              className="object-contain drop-shadow-md"
-              priority
-            />
-          </div>
-          <div className="relative h-9 w-44 transition-transform duration-200 group-hover:scale-[1.02]">
-            <Image
-              src="/media/logo_navbar.webp"
-              alt="WERB Solutions"
-              fill
-              sizes="180px"
+              sizes="200px"
               className="object-contain object-left drop-shadow-md"
               priority
             />

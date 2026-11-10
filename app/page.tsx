@@ -150,10 +150,10 @@ export default function Home() {
             {NYC_SERVICES.map((srv) => (
               <div 
                 key={srv.id} 
-                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-4 shadow-sm hover:shadow-md hover:border-[#e6b93e]/50 transition-all duration-300"
+                className="apple-glass-card group relative flex flex-col justify-between overflow-hidden rounded-2xl p-4 transition-all duration-300"
               >
                 <div>
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10">
                     <Image
                       src={srv.image}
                       alt={srv.title}
@@ -161,7 +161,7 @@ export default function Home() {
                       sizes="300px"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <span className="absolute top-2.5 left-2.5 rounded-lg bg-black/80 px-2.5 py-1 text-[10px] font-mono font-bold uppercase text-[#e6b93e] backdrop-blur-md">
+                    <span className="absolute top-2.5 left-2.5 rounded-lg bg-black/80 px-2.5 py-1 text-[10px] font-mono font-bold uppercase text-[#e6b93e] backdrop-blur-md border border-[#e6b93e]/30">
                       {srv.badge}
                     </span>
                   </div>
@@ -200,7 +200,7 @@ export default function Home() {
       </section>
 
       {/* NYC BOROUGHS SECTION */}
-      <section id="boroughs" className="relative z-10 py-20">
+      <section id="boroughs" className="relative z-10 py-20 bg-slate-50/50 dark:bg-black/40 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
@@ -218,25 +218,25 @@ export default function Home() {
             {BOROUGHS.map((b, idx) => (
               <div 
                 key={idx}
-                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#090e17] p-6 shadow-sm"
+                className="apple-glass-card rounded-2xl p-6 relative overflow-hidden group"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-tight">
                     {b.name}
                   </h3>
-                  <span className="rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2.5 py-1">
+                  <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-mono font-bold px-2.5 py-1">
                     {b.dispatchTime}
                   </span>
                 </div>
                 <div className="text-xs font-semibold text-[#b88c22] dark:text-[#e6b93e] mt-1">
                   {b.subtitle}
                 </div>
-                <p className="mt-4 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="mt-4 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {b.neighborhoods}
                 </p>
-                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs">
-                  <span className="text-slate-500">Inspections & Permits:</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">DOB NOW™ Ready</span>
+                <div className="mt-6 pt-4 border-t border-slate-200/40 dark:border-white/10 flex items-center justify-between text-xs">
+                  <span className="text-slate-500 dark:text-slate-400">Inspections & Permits:</span>
+                  <span className="font-mono font-bold text-[#b79f53] dark:text-[#ece8a6]">DOB NOW™ Ready</span>
                 </div>
               </div>
             ))}
@@ -245,7 +245,7 @@ export default function Home() {
       </section>
 
       {/* DOB & INSURANCES SECTION (LINKABLE FROM NAVBAR #compliance) */}
-      <section id="compliance" className="relative z-10 border-t border-slate-200 dark:border-slate-800/80 bg-white/70 dark:bg-[#090e17]/70 py-20 backdrop-blur-sm scroll-mt-20">
+      <section id="compliance" className="relative z-10 border-t border-slate-200 dark:border-white/10 bg-slate-100/60 dark:bg-[#070b14]/80 py-20 backdrop-blur-xl scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
@@ -260,47 +260,47 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-6 shadow-sm">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e6b93e]/15 text-[#e6b93e] mb-4">
+            <div className="apple-glass-card rounded-2xl p-6 relative overflow-hidden group">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e6b93e]/15 border border-[#e6b93e]/30 text-[#e6b93e] mb-4 group-hover:scale-110 transition-transform duration-300">
                 <ShieldCheck className="h-6 w-6" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
                 NYC DOB Licensed Master Electrician
               </h3>
               <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Licensed under the Department of Buildings (DOB). We file and process electrical permits directly via the <strong>DOB NOW: Inspections / Licensing</strong> portal.
               </p>
-              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
+              <div className="mt-4 pt-3 border-t border-slate-200/40 dark:border-white/10 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
                 ✓ License Active & Verified: {texts.licenseNumber}
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-6 shadow-sm">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-500/15 text-sky-500 mb-4">
+            <div className="apple-glass-card rounded-2xl p-6 relative overflow-hidden group">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-sky-500/15 border border-sky-500/30 text-sky-400 mb-4 group-hover:scale-110 transition-transform duration-300">
                 <FileCheck2 className="h-6 w-6" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
                 {texts.coiAmount} Commercial General Liability
               </h3>
               <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Standard ISO CG 0001 coverage ($1M Occurrence / $2M Aggregate) naming property owners, management companies, and the City of New York as Additional Insureds.
               </p>
-              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-mono text-sky-600 dark:text-sky-400 font-bold">
+              <div className="mt-4 pt-3 border-t border-slate-200/40 dark:border-white/10 text-[11px] font-mono text-sky-600 dark:text-sky-400 font-bold">
                 ✓ COI Generated Same-Day for Building Boards
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-6 shadow-sm">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/15 text-amber-500 mb-4">
+            <div className="apple-glass-card rounded-2xl p-6 relative overflow-hidden group">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400 mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Building className="h-6 w-6" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
                 NY Labor Law 240/241 & Scaffold Law
               </h3>
               <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 Comprehensive statutory worker protection policy strictly guarding general contractors and property owners against strict liability claims on high-elevation scaffolding.
               </p>
-              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold">
+              <div className="mt-4 pt-3 border-t border-slate-200/40 dark:border-white/10 text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold">
                 ✓ Full NYS Workers' Comp & Disability Active
               </div>
             </div>
