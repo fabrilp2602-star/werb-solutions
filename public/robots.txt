@@ -1,0 +1,39 @@
+# Robots.txt for WERB Solutions LLC (NYC)
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# AI Crawlers & Citation Engines Allowed
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Block Scrapers
+User-agent: CCBot
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+Sitemap: https://werb-solutions-two.vercel.app/sitemap.xml
