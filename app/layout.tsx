@@ -14,10 +14,12 @@ export const metadata: Metadata = {
   title: "WERB Solutions | NYC Licensed Master Electrician 24/7",
   description: "Licensed Master Electrician in NYC. 24/7 Emergency electrical dispatch, 200A panel upgrades, EV charging, DOB NOW™ filings for Manhattan, Brooklyn, Queens.",
   icons: {
-    icon: "/media/logo_navbar.webp",
-    apple: "/media/logo_navbar.webp",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
+
 
 export default function RootLayout({
   children,
