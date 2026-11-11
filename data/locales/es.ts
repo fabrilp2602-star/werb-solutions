@@ -21,6 +21,25 @@ export const es: TranslationDictionary = {
     description: "En WERB Solutions brindamos ingeniería eléctrica certificada de alta tensión, energía solar urbana y reformas de lujo en todo Nueva York, con $2M en póliza COI y aprobación garantizada en DOB NOW™.",
     ctaPrimary: "Solicitar Inspección",
     ctaSecondary: "Ver Catálogo Técnico",
+    trustSignals: {
+      heavyUp: "⚡ Aumento de Capacidad 200A-800A",
+      coi: "🛡️ Póliza COI Activa $2,000,000",
+      dob: "🏛️ Radicación Directa DOB NOW™",
+    },
+  },
+  sliderMeta: {
+    nextIntake: "SIGUIENTE DISCIPLINA",
+    disciplineLabel: "DISCIPLINA",
+  },
+  heroStats: {
+    passRate: "100%",
+    passRateLabel: "Aprobación de Inspección DOB NOW™",
+    dispatch: "<45m",
+    dispatchLabel: "Emergencias 24/7 en Manhattan",
+    insurance: "$2M",
+    insuranceLabel: "Seguro de Responsabilidad Civil COI",
+    experience: "15+",
+    experienceLabel: "Años de Práctica Matriculada en NYC",
   },
   servicesPage: {
     badge: "Directorio Oficial de Contratación • 5 Distritos de NYC",

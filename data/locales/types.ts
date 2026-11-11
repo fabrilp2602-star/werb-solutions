@@ -21,6 +21,25 @@ export interface TranslationDictionary {
     description: string;
     ctaPrimary: string;
     ctaSecondary: string;
+    trustSignals: {
+      heavyUp: string;
+      coi: string;
+      dob: string;
+    };
+  };
+  sliderMeta: {
+    nextIntake: string;
+    disciplineLabel: string;
+  };
+  heroStats: {
+    passRate: string;
+    passRateLabel: string;
+    dispatch: string;
+    dispatchLabel: string;
+    insurance: string;
+    insuranceLabel: string;
+    experience: string;
+    experienceLabel: string;
   };
   servicesPage: {
     badge: string;

@@ -36,4 +36,4 @@ Disallow: /
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: https://werb-solutions-two.vercel.app/sitemap.xml
+Sitemap: https://werbsolutions.com/sitemap.xml

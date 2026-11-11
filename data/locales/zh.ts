@@ -21,6 +21,25 @@ export const zh: TranslationDictionary = {
     description: "在WERB Solutions，我们为纽约全境提供权威认证的高压电气工程、城市清洁能源及高端建筑翻新，附带200万美元责任商业保险（COI）并确保DOB NOW™官方验收通过。",
     ctaPrimary: "立即预约评估",
     ctaSecondary: "探索服务范围",
+    trustSignals: {
+      heavyUp: "⚡ 200A-800A 扩容升级",
+      coi: "🛡️ 200万美元有效COI保单",
+      dob: "🏛️ DOB NOW™ 官方直报",
+    },
+  },
+  sliderMeta: {
+    nextIntake: "即将展示",
+    disciplineLabel: "专业工程",
+  },
+  heroStats: {
+    passRate: "100%",
+    passRateLabel: "DOB NOW™ 官方验收合格率",
+    dispatch: "<45分钟",
+    dispatchLabel: "曼哈顿24/7全天候紧急响应",
+    insurance: "$200万",
+    insuranceLabel: "商业综合责任保险 COI",
+    experience: "15年+",
+    experienceLabel: "纽约持证施工专业资历",
   },
   servicesPage: {
     badge: "一站式工程承包名录 • 纽约市五大区全覆盖",

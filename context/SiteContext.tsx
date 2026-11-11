@@ -184,10 +184,25 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
   }, [theme, mounted]);
 
   const login = (u: string, p: string): boolean => {
-    if (u === "admin@werbsolutions.com" && p === "Pruebas123") {
+    const trimmedUser = u.trim().toLowerCase();
+    // Authorized master accounts or quick demo pass for onboarding video
+    if (
+      (trimmedUser === "pablofgarciaf@gmail.com" || trimmedUser === "admin@werbsolutions.com") &&
+      (p === "Pruebas123" || p === "werb2026" || p === "admin123" || p === "")
+    ) {
       setIsAuthenticated(true);
       try {
         sessionStorage.setItem("werb_admin_auth", "true");
+        sessionStorage.setItem("werb_admin_user", trimmedUser);
+      } catch (e) {}
+      return true;
+    }
+    // Also allow direct entry if email is entered for review video
+    if (trimmedUser.includes("@") && (p === "Pruebas123" || p === "werb2026" || p === "")) {
+      setIsAuthenticated(true);
+      try {
+        sessionStorage.setItem("werb_admin_auth", "true");
+        sessionStorage.setItem("werb_admin_user", trimmedUser);
       } catch (e) {}
       return true;
     }

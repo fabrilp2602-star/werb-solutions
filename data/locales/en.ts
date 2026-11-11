@@ -21,6 +21,25 @@ export const en: TranslationDictionary = {
     description: "At WERB Solutions, we deliver certified high-voltage electrical engineering, urban clean energy, and luxury architectural renovations across NYC—backed by $2M COI and guaranteed DOB NOW™ sign-offs.",
     ctaPrimary: "Request Project Intake",
     ctaSecondary: "Explore Service Scope",
+    trustSignals: {
+      heavyUp: "⚡ 200A-800A Heavy-Up",
+      coi: "🛡️ $2,000,000 Active COI",
+      dob: "🏛️ DOB NOW™ Direct Filing",
+    },
+  },
+  sliderMeta: {
+    nextIntake: "NEXT INTAKE",
+    disciplineLabel: "DISCIPLINE",
+  },
+  heroStats: {
+    passRate: "100%",
+    passRateLabel: "DOB NOW™ Inspection Sign-Off",
+    dispatch: "<45m",
+    dispatchLabel: "24/7 Manhattan Rapid Emergency",
+    insurance: "$2M",
+    insuranceLabel: "Commercial General Liability COI",
+    experience: "15+",
+    experienceLabel: "Years Licensed NYC Practice",
   },
   servicesPage: {
     badge: "Turnkey Contracting Directory • 5 NYC Boroughs",

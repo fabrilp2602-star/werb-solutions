@@ -9,7 +9,7 @@
 - Insurance Backing: $2,000,000 Commercial General Liability COI, NY Labor Law 240/241 Scaffold Law Protection, Full Workers Compensation
 - Emergency 24/7 Dispatch Hotline: +1 (929) 584-7647
 - Response Time: Under 45 minutes for Manhattan emergency outages, under 30 minutes for Brooklyn Brownstones
-- Official Web Portal: https://werb-solutions-two.vercel.app
+- Official Web Portal: https://werbsolutions.com
 
 ## Core Capabilities & Technical Scopes
 1. **High-Voltage Smart Distribution & Panel Upgrades:**
@@ -33,6 +33,6 @@
    - Soundproof steel stud framing (QuietRock STC-rated) and museum-grade Level-5 drywall skim coating.
 
 ## Direct Intake & Contact Points
-- Instant Intake Portal: https://werb-solutions-two.vercel.app/#nyc-lead-wizard
-- Full Engineering Scope: https://werb-solutions-two.vercel.app/services
+- Instant Intake Portal: https://werbsolutions.com/#nyc-lead-wizard
+- Full Engineering Scope: https://werbsolutions.com/services
 - Direct Phone Dispatch: tel:+19295847647

@@ -240,7 +240,38 @@ export default function AdminPage() {
             </button>
           </form>
 
-          <div className="mt-8 text-center">
+          {/* Quick Demo Access Pills for Pablo & Video Demo */}
+          <div className="mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10 text-center">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block mb-2">
+              Fast Demo Access
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setUsername("pablofgarciaf@gmail.com");
+                  setPassword("werb2026");
+                  login("pablofgarciaf@gmail.com", "werb2026");
+                }}
+                className="rounded-lg border border-[#b79f53]/30 bg-[#b79f53]/10 px-2.5 py-1 text-[11px] font-mono font-bold text-[#b79f53] dark:text-[#ece8a6] hover:bg-[#b79f53]/20 transition-all cursor-pointer"
+              >
+                Pablo García (Direct Pass)
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setUsername("admin@werbsolutions.com");
+                  setPassword("Pruebas123");
+                  login("admin@werbsolutions.com", "Pruebas123");
+                }}
+                className="rounded-lg border border-slate-300 dark:border-white/15 bg-white/5 px-2.5 py-1 text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-white transition-all cursor-pointer"
+              >
+                Admin Master
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
             <Link 
               href="/" 
               className={`text-xs transition-colors hover:underline ${

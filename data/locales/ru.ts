@@ -21,6 +21,25 @@ export const ru: TranslationDictionary = {
     description: "Компания WERB Solutions выполняет профессиональные высоковольтные электромонтажные работы, установку солнечных панелей и элитный ремонт в Нью-Йорке. Страховой полис COI на $2,000,000 и официальная сдача инспекциям DOB NOW™.",
     ctaPrimary: "Заказать аудит объекта",
     ctaSecondary: "Каталог услуг",
+    trustSignals: {
+      heavyUp: "⚡ Увеличение мощности 200A-800A",
+      coi: "🛡️ Полис COI на $2,000,000",
+      dob: "🏛️ Прямая подача в DOB NOW™",
+    },
+  },
+  sliderMeta: {
+    nextIntake: "СЛЕДУЮЩИЙ РАЗДЕЛ",
+    disciplineLabel: "ДИСЦИПЛИНА",
+  },
+  heroStats: {
+    passRate: "100%",
+    passRateLabel: "Сдача инспекциям DOB NOW™",
+    dispatch: "<45м",
+    dispatchLabel: "Срочный выезд в Манхэттене 24/7",
+    insurance: "$2M",
+    insuranceLabel: "Страховой полис ответственности COI",
+    experience: "15+",
+    experienceLabel: "Лет практики с лицензией NYC",
   },
   servicesPage: {
     badge: "Реестр строительно-монтажных услуг • 5 боро Нью-Йорка",

@@ -240,10 +240,17 @@ export function HeroCardRail({
   items,
   active,
   onSelect,
+  nextIntakeLabel = "NEXT INTAKE",
 }: {
-  items: HeroSlide[];
+  items: {
+    id: number;
+    title: string;
+    subtitle: string;
+    imageUrl: string;
+  }[];
   active: number;
   onSelect: (index: number) => void;
+  nextIntakeLabel?: string;
 }) {
   const upcoming = Array.from(
     { length: Math.min(items.length - 1, 4) },
@@ -281,7 +288,7 @@ export function HeroCardRail({
             
             {isNext && (
               <span className="absolute left-2.5 top-2.5 rounded-full border border-[#e2c97d]/50 bg-black/75 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-widest text-[#ece8a6] backdrop-blur-md">
-                NEXT INTAKE
+                {nextIntakeLabel}
               </span>
             )}
             
@@ -436,9 +443,9 @@ export default function HeroSlider({
 
                 {/* Trust Signals Strip */}
                 <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px] font-mono text-[#ece8a6]">
-                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">⚡ 200A-800A Heavy-Up</span>
-                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">🛡️ $2,000,000 Active COI</span>
-                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">🏛️ DOB NOW™ Direct Filing</span>
+                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.heavyUp}</span>
+                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.coi}</span>
+                  <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.dob}</span>
                 </div>
               </div>
             ) : (
@@ -481,24 +488,27 @@ export default function HeroSlider({
 
             {/* Mobile Category Switcher Pills */}
             <div className="flex flex-wrap gap-1.5 pt-2 md:hidden">
-              {HERO_SLIDES.map((s, idx) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => rail.setActive(idx)}
-                  className={`rounded-lg px-2.5 py-1 text-[11px] font-semibold transition-all cursor-pointer ${
-                    idx === rail.active
-                      ? "bg-[#e2c97d] text-[#1a1608] font-bold shadow-md shadow-[#e2c97d]/20"
-                      : "bg-white/10 text-slate-300 border border-white/10 hover:bg-white/20"
-                  }`}
-                >
-                  {s.id === 1 && "⚡ High-Voltage"}
-                  {s.id === 2 && "☀️ Solar & EV"}
-                  {s.id === 3 && "💡 Lighting"}
-                  {s.id === 4 && "🚨 FDNY Safety"}
-                  {s.id === 5 && "🏗️ Contracting"}
-                </button>
-              ))}
+              {HERO_SLIDES.map((s, idx) => {
+                const label = t.slides[idx]?.h1.split(" ")[0] || s.title.split(" ")[0];
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => rail.setActive(idx)}
+                    className={`rounded-lg px-2.5 py-1 text-[11px] font-semibold transition-all cursor-pointer ${
+                      idx === rail.active
+                        ? "bg-[#e2c97d] text-[#1a1608] font-bold shadow-md shadow-[#e2c97d]/20"
+                        : "bg-white/10 text-slate-300 border border-white/10 hover:bg-white/20"
+                    }`}
+                  >
+                    {s.id === 1 && "⚡ " + label}
+                    {s.id === 2 && "☀️ " + label}
+                    {s.id === 3 && "💡 " + label}
+                    {s.id === 4 && "🚨 " + label}
+                    {s.id === 5 && "🏗️ " + label}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Dual CTAs side by side (Fixed uniform height, whitespace-nowrap to prevent multiline wrap) */}
@@ -535,9 +545,15 @@ export default function HeroSlider({
           {/* Right Bottom Corner: Rail & Controls (PATRÓN MODULARES GM EXACTO) */}
           <div className="hidden flex-col items-end justify-end gap-3 md:flex lg:col-span-5 lg:self-end">
             <HeroCardRail
-              items={HERO_SLIDES}
+              items={HERO_SLIDES.map((s, idx) => ({
+                id: s.id,
+                title: t.slides[idx]?.title || s.title,
+                subtitle: t.slides[idx]?.subtitle || s.subtitle,
+                imageUrl: s.imageUrl,
+              }))}
               active={rail.active}
               onSelect={rail.setActive}
+              nextIntakeLabel={t.sliderMeta?.nextIntake || "NEXT INTAKE"}
             />
             <RailControls
               active={rail.active}
@@ -546,25 +562,48 @@ export default function HeroSlider({
               onToggle={rail.togglePlay}
               onPrev={rail.prev}
               onNext={rail.next}
+              label={t.sliderMeta?.disciplineLabel || "DISCIPLINE"}
             />
           </div>
 
         </div>
       </div>
 
-      {/* 2. STATS STRIP (Directamente bajo el hero con contadores animados Emil Kowalski) */}
+      {/* 2. STATS STRIP (Directamente bajo el hero con contadores animados Emil Kowalski y traducciones dinámicas) */}
       <div className="border-t border-white/10 bg-[#070a12] text-white">
         <dl className="mx-auto grid max-w-7xl grid-cols-2 divide-white/10 sm:grid-cols-4 sm:divide-x">
-          {DEFAULT_STATS.map((stat) => (
-            <div key={stat.id} className="flex flex-col items-center justify-center px-4 py-4 text-center sm:h-[92px]">
-              <dd className="order-1 font-mono text-2xl font-bold leading-none text-[#ece8a6] sm:text-3xl">
-                <AnimatedCounter value={stat.value} />
-              </dd>
-              <dt className="order-2 mt-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
-                {stat.label}
-              </dt>
-            </div>
-          ))}
+          <div className="flex flex-col items-center justify-center px-4 py-4 text-center sm:h-[92px]">
+            <dd className="order-1 font-mono text-2xl font-bold leading-none text-[#ece8a6] sm:text-3xl">
+              <AnimatedCounter value={t.heroStats?.passRate || "100%"} />
+            </dd>
+            <dt className="order-2 mt-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
+              {t.heroStats?.passRateLabel || "DOB NOW™ Inspection Sign-Off"}
+            </dt>
+          </div>
+          <div className="flex flex-col items-center justify-center px-4 py-4 text-center sm:h-[92px]">
+            <dd className="order-1 font-mono text-2xl font-bold leading-none text-[#ece8a6] sm:text-3xl">
+              <AnimatedCounter value={t.heroStats?.dispatch || "<45m"} />
+            </dd>
+            <dt className="order-2 mt-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
+              {t.heroStats?.dispatchLabel || "24/7 Manhattan Rapid Emergency"}
+            </dt>
+          </div>
+          <div className="flex flex-col items-center justify-center px-4 py-4 text-center sm:h-[92px]">
+            <dd className="order-1 font-mono text-2xl font-bold leading-none text-[#ece8a6] sm:text-3xl">
+              <AnimatedCounter value={t.heroStats?.insurance || "$2M"} />
+            </dd>
+            <dt className="order-2 mt-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
+              {t.heroStats?.insuranceLabel || "Commercial General Liability COI"}
+            </dt>
+          </div>
+          <div className="flex flex-col items-center justify-center px-4 py-4 text-center sm:h-[92px]">
+            <dd className="order-1 font-mono text-2xl font-bold leading-none text-[#ece8a6] sm:text-3xl">
+              <AnimatedCounter value={t.heroStats?.experience || "15+"} />
+            </dd>
+            <dt className="order-2 mt-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
+              {t.heroStats?.experienceLabel || "Years Licensed NYC Practice"}
+            </dt>
+          </div>
         </dl>
       </div>
 
