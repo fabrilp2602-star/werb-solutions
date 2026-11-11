@@ -11,82 +11,22 @@ import NycLeadWizard from "@/components/features/NycLeadWizard";
 import HeroSlider from "@/components/features/HeroSlider";
 import { 
   ShieldCheck, 
-  Zap, 
   Building, 
-  CheckCircle, 
-  Clock, 
-  PhoneCall, 
   FileCheck2, 
-  MapPin,
   ArrowRight,
-  Check,
-  Sparkles,
-  Award
+  Check
 } from "lucide-react";
 import { useSite } from "@/context/SiteContext";
 
-const NYC_SERVICES = [
-  {
-    id: "panel-upgrade",
-    title: "200A Smart Panel Upgrades",
-    targetService: "200A Smart Electrical Panel Upgrade",
-    badge: "DOB NOW™ Certified",
-    desc: "Replacement of obsolete Federal Pacific & Zinsco panels with smart Eaton/Square-D units. Essential for EV chargers and central HVAC in Brooklyn Brownstones.",
-    image: "/media/service_panel_verification_desktop.webp",
-    features: ["Under 8-Hour Seamless Cutover", "DOB Inspection Tag Guaranteed", "Smart Load Shedding Integration"]
-  },
-  {
-    id: "ev-charging",
-    title: "Tesla & Universal Level-2 EV Chargers",
-    targetService: "Level-2 EV Charger Dedicated Line",
-    badge: "NYC Code Compliant",
-    desc: "Complete multi-family, private garage, and commercial Level-2 EV charger installations with dedicated 240V lines and permit management.",
-    image: "/media/service_ev_charger_install_mobile.webp",
-    features: ["Load Calculation Verification", "Wall Connector Concealed Conduit", "NYC DOB Electrical Certificate"]
-  },
-  {
-    id: "architectural-lighting",
-    title: "Lutron Architectural Lighting",
-    targetService: "Lutron Architectural Smart Lighting",
-    badge: "Luxury Penthouses",
-    desc: "Precision magnetic track lighting, cove indirect illumination, and Lutron HomeWorks automated wireless keypad integration for Manhattan residences.",
-    image: "/media/service_lighting_penthouse_mobile.webp",
-    features: ["Zero-Flicker 3000K Warm Dimming", "Venetian Plaster Flush Mounts", "Smartphone & Voice Automation"]
-  },
-  {
-    id: "solar-battery",
-    title: "Urban Rooftop Solar & Storage",
-    targetService: "Solar Rooftop & Battery Backup System",
-    badge: "Local Law 97 Ready",
-    desc: "Commercial and residential flat rooftop photovoltaic canopies with Enphase/Tesla Powerwall battery backup systems across Brooklyn & Queens.",
-    image: "/media/service_solar_brooklyn_rooftop_mobile.webp",
-    features: ["NYC Solar Property Tax Abatement", "ConEd Interconnection Filing", "Carbon Penalty Mitigation"]
-  }
-];
-
-const BOROUGHS = [
-  {
-    name: "Manhattan",
-    subtitle: "High-Rise Condos, Co-ops & Historic Lofts",
-    neighborhoods: "Tribeca • Soho • Upper East Side • Upper West Side • Chelsea • West Village • Financial District",
-    dispatchTime: "Under 45 Mins 24/7"
-  },
-  {
-    name: "Brooklyn",
-    subtitle: "Historic Brownstones & Commercial Waterfront",
-    neighborhoods: "Brooklyn Heights • DUMBO • Park Slope • Williamsburg • Cobble Hill • Carroll Gardens • Greenpoint",
-    dispatchTime: "Under 30 Mins 24/7"
-  },
-  {
-    name: "Queens & LIC",
-    subtitle: "Commercial Hubs, Warehouses & Multi-Family",
-    neighborhoods: "Long Island City • Astoria • Sunnyside • Forest Hills • Flushing • Ridgewood",
-    dispatchTime: "Under 40 Mins 24/7"
-  }
-];
+const SERVICE_IMAGES: Record<string, string> = {
+  "panel-upgrade": "/media/service_panel_verification_desktop.webp",
+  "ev-charging": "/media/service_ev_charger_install_mobile.webp",
+  "architectural-lighting": "/media/service_lighting_penthouse_mobile.webp",
+  "solar-battery": "/media/service_solar_brooklyn_rooftop_mobile.webp",
+};
 
 export default function Home() {
-  const { texts } = useSite();
+  const { texts, t } = useSite();
   const [selectedService, setSelectedService] = useState<string>("200A Smart Electrical Panel Upgrade");
 
   // Read URL query parameter if present (e.g. ?service=Level-2+EV+Charger...)
@@ -118,13 +58,13 @@ export default function Home() {
       {/* Top Dynamic Marquee */}
       <Marquee />
 
-      {/* Main Luxury Header (Without Admin button) */}
+      {/* Main Luxury Header */}
       <Header />
 
       {/* Persistent iOS Mobile Action Bar */}
       <MobileActionBar />
 
-      {/* LUXURY HERO SLIDER (MODULARES GM PATTERN WITH FULL-BLEED BACKGROUND & SERVICE CARDS RAIL) */}
+      {/* LUXURY HERO SLIDER */}
       <HeroSlider
         isHomePage={true}
         onSelectService={handleSelectService}
@@ -136,18 +76,18 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e] mb-2 block">
-              High-Spec Infrastructure Catalog
+              {t.servicesSection.badge}
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold uppercase tracking-tight text-slate-900 dark:text-white">
-              ENGINEERED ELECTRICAL SERVICES
+              {t.servicesSection.title}
             </h2>
             <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
-              Fully permitted under the New York City Electrical Code (Title 27 Chapter 3).
+              {t.servicesSection.subtitle}
             </p>
           </div>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {NYC_SERVICES.map((srv) => (
+            {t.servicesSection.items.map((srv) => (
               <div 
                 key={srv.id} 
                 className="apple-glass-card group relative flex flex-col justify-between overflow-hidden rounded-2xl p-4 transition-all duration-300"
@@ -155,7 +95,7 @@ export default function Home() {
                 <div>
                   <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10">
                     <Image
-                      src={srv.image}
+                      src={SERVICE_IMAGES[srv.id] || "/media/service_panel_verification_desktop.webp"}
                       alt={srv.title}
                       fill
                       sizes="300px"
@@ -189,7 +129,7 @@ export default function Home() {
                     onClick={() => handleSelectService(srv.targetService)}
                     className="mt-4 flex w-full items-center justify-between text-xs font-bold text-[#b79f53] dark:text-[#ece8a6] hover:underline cursor-pointer group-hover:translate-x-0.5 transition-transform"
                   >
-                    <span>Request Schedule</span>
+                    <span>{t.servicesSection.requestSchedule}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -204,18 +144,18 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
-              Immediate Rapid Dispatch
+              {t.boroughsSection.badge}
             </span>
             <h2 className="mt-1 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
-              NYC COVERAGE BOROUGHS
+              {t.boroughsSection.title}
             </h2>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-              Dedicated mobile technical vans stationed strategically across the metropolitan area.
+              {t.boroughsSection.subtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {BOROUGHS.map((b, idx) => (
+            {t.boroughsSection.items.map((b, idx) => (
               <div 
                 key={idx}
                 className="apple-glass-card rounded-2xl p-6 relative overflow-hidden group"
@@ -235,8 +175,8 @@ export default function Home() {
                   {b.neighborhoods}
                 </p>
                 <div className="mt-6 pt-4 border-t border-slate-200/40 dark:border-white/10 flex items-center justify-between text-xs">
-                  <span className="text-slate-500 dark:text-slate-400">Inspections & Permits:</span>
-                  <span className="font-mono font-bold text-[#b79f53] dark:text-[#ece8a6]">DOB NOW™ Ready</span>
+                  <span className="text-slate-500 dark:text-slate-400">{t.boroughsSection.inspectionsLabel}</span>
+                  <span className="font-mono font-bold text-[#b79f53] dark:text-[#ece8a6]">{t.boroughsSection.dobStatus}</span>
                 </div>
               </div>
             ))}
@@ -244,18 +184,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DOB & INSURANCES SECTION (LINKABLE FROM NAVBAR #compliance) */}
+      {/* DOB & INSURANCES SECTION */}
       <section id="compliance" className="relative z-10 border-t border-slate-200 dark:border-white/10 bg-slate-100/60 dark:bg-[#070b14]/80 py-20 backdrop-blur-xl scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
-              Institutional Accreditations
+              {t.complianceSection.badge}
             </span>
             <h2 className="mt-1 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
-              NYC DOB & INSURANCE COMPLIANCE
+              {t.complianceSection.title}
             </h2>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-              Mandatory legal credentials demanded by Manhattan Condominiums, Co-op Boards, and General Contractors.
+              {t.complianceSection.subtitle}
             </p>
           </div>
 
@@ -265,13 +205,13 @@ export default function Home() {
                 <ShieldCheck className="h-6 w-6" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
-                NYC DOB Licensed Master Electrician
+                {t.complianceSection.cards.dobTitle}
               </h3>
               <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Licensed under the Department of Buildings (DOB). We file and process electrical permits directly via the <strong>DOB NOW: Inspections / Licensing</strong> portal.
+                {t.complianceSection.cards.dobDesc}
               </p>
               <div className="mt-4 pt-3 border-t border-slate-200/40 dark:border-white/10 text-[11px] font-mono text-emerald-600 dark:text-emerald-400 font-bold">
-                ✓ License Active & Verified: {texts.licenseNumber}
+                {t.complianceSection.cards.dobStatus}: {texts.licenseNumber}
               </div>
             </div>
 
@@ -280,13 +220,13 @@ export default function Home() {
                 <FileCheck2 className="h-6 w-6" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
-                {texts.coiAmount} Commercial General Liability
+                {texts.coiAmount} {t.complianceSection.cards.coiTitle}
               </h3>
               <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Standard ISO CG 0001 coverage ($1M Occurrence / $2M Aggregate) naming property owners, management companies, and the City of New York as Additional Insureds.
+                {t.complianceSection.cards.coiDesc}
               </p>
               <div className="mt-4 pt-3 border-t border-slate-200/40 dark:border-white/10 text-[11px] font-mono text-sky-600 dark:text-sky-400 font-bold">
-                ✓ COI Generated Same-Day for Building Boards
+                {t.complianceSection.cards.coiStatus}
               </div>
             </div>
 
@@ -295,24 +235,24 @@ export default function Home() {
                 <Building className="h-6 w-6" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white uppercase tracking-tight">
-                NY Labor Law 240/241 & Scaffold Law
+                {t.complianceSection.cards.laborTitle}
               </h3>
               <p className="mt-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                Comprehensive statutory worker protection policy strictly guarding general contractors and property owners against strict liability claims on high-elevation scaffolding.
+                {t.complianceSection.cards.laborDesc}
               </p>
               <div className="mt-4 pt-3 border-t border-slate-200/40 dark:border-white/10 text-[11px] font-mono text-amber-600 dark:text-amber-400 font-bold">
-                ✓ Full NYS Workers' Comp & Disability Active
+                {t.complianceSection.cards.laborStatus}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ABOUT SECTION (LINKABLE FROM NAVBAR #about) */}
+      {/* ABOUT SECTION */}
       <section id="about" className="relative z-10 border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-[#050810] py-20 scroll-mt-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
-            Official NYC Contractor
+            {t.aboutSection.badge}
           </span>
           <h2 className="mt-2 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
             {texts.aboutTitle}
@@ -325,93 +265,65 @@ export default function Home() {
               href="/services"
               className="gold-gradient-btn inline-flex items-center gap-2 rounded-xl px-7 py-3 text-xs font-bold uppercase tracking-wider text-black shadow-md"
             >
-              <span>Explore Complete Services Directory</span>
+              <span>{t.aboutSection.exploreBtn}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* VERIFIED CLIENT REVIEWS (ORIGINAL TESTIMONIALS FROM GODADDY) */}
+      {/* VERIFIED CLIENT REVIEWS */}
       <section className="relative z-10 border-t border-slate-200 dark:border-slate-800/80 bg-slate-100/50 dark:bg-[#090e17]/50 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#966b08] dark:text-[#e6b93e]">
-              Verified NYC Client Feedback & Track Record
+              {t.reviewsSection.badge}
             </span>
             <h2 className="mt-1 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
-              WHAT OUR CLIENTS SAY
+              {t.reviewsSection.title}
             </h2>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-              Trusted by condo owners, brownstone renovators, and commercial facility managers across Manhattan, Brooklyn, and Queens.
+              {t.reviewsSection.subtitle}
             </p>
           </div>
 
-          {/* Microfish Industry Trust Metrics */}
+          {/* Trust Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10 text-center">
             <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white dark:bg-[#050810] p-4 shadow-sm">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">100%</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">DOB Inspection Pass Rate</div>
+              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">{t.reviewsSection.stats.passRate}</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.reviewsSection.stats.passRateLabel}</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white dark:bg-[#050810] p-4 shadow-sm">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">ConEd</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Direct Load Letter Filing</div>
+              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">{t.reviewsSection.stats.coned}</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.reviewsSection.stats.conedLabel}</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white dark:bg-[#050810] p-4 shadow-sm">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">&lt;45 min</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">24/7 Manhattan Emergency</div>
+              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">{t.reviewsSection.stats.dispatch}</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.reviewsSection.stats.dispatchLabel}</div>
             </div>
             <div className="rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white dark:bg-[#050810] p-4 shadow-sm">
-              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">$0</div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Hidden Fees / Upfront Quote</div>
+              <div className="text-xl sm:text-2xl font-bold font-mono text-[#966b08] dark:text-[#e6b93e]">{t.reviewsSection.stats.fees}</div>
+              <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.reviewsSection.stats.feesLabel}</div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-6 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-1 text-amber-500 mb-3">
-                  {"★".repeat(5)}
+            {t.reviewsSection.reviews.map((rev, rIdx) => (
+              <div key={rIdx} className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-6 shadow-sm flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-1 text-amber-500 mb-3">
+                    {"★".repeat(5)}
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed">
+                    &ldquo;{rev.quote}&rdquo;
+                  </p>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed">
-                  &ldquo;Vladimir did a great job fixing my circuit breakers for a reasonable price. Very happy with the outcome.&rdquo;
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-900 dark:text-white">Greg R.</span>
-                <span className="text-slate-400">Verified Client</span>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-6 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-1 text-amber-500 mb-3">
-                  {"★".repeat(5)}
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-900 dark:text-white">{rev.author}</span>
+                  <span className="text-slate-400">{t.reviewsSection.verifiedClient}</span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed">
-                  &ldquo;The team worked efficiently to identify the electrical issue and proposed recommendations to fix it. They acted quickly to fix the issues based on what we agreed and everything turned out well. I would definitely recommend them for all electrical needs.&rdquo;
-                </p>
               </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-900 dark:text-white">Shauna W.</span>
-                <span className="text-slate-400">Verified Client</span>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#050810] p-6 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-1 text-amber-500 mb-3">
-                  {"★".repeat(5)}
-                </div>
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 italic leading-relaxed">
-                  &ldquo;Very polite and nicely have done the work. Installed 3 ceiling fan last minute call and a hallway light. Impressed with his workmanship.&rdquo;
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-900 dark:text-white">Sabina H.</span>
-                <span className="text-slate-400">Verified Client</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -421,13 +333,13 @@ export default function Home() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
-              Direct Intake & COI Generator
+              {t.leadWizard.badge}
             </span>
             <h2 className="mt-1 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
-              SCHEDULE NYC INSPECTION & QUOTE
+              {t.leadWizard.title}
             </h2>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-              Complies with NYC Building Department guidelines and Alteration Agreements for luxury buildings.
+              {t.leadWizard.subtitle}
             </p>
           </div>
 

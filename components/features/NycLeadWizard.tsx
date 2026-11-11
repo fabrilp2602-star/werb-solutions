@@ -7,11 +7,9 @@ import {
   ArrowLeft, 
   Clock, 
   Zap, 
-  FileText,
-  Sparkles,
-  Building,
-  ShieldCheck
+  Sparkles
 } from "lucide-react";
+import { useSite } from "@/context/SiteContext";
 
 interface FormData {
   propertyType: string;
@@ -24,13 +22,6 @@ interface FormData {
   dobJobNumber?: string;
   notes?: string;
 }
-
-const PROPERTY_TYPES = [
-  { id: "condo", title: "NYC Luxury Condo", desc: "Alteration Agreement with board approval requirements" },
-  { id: "coop", title: "NYC Co-op Building", desc: "Strict management building rules & insurance riders" },
-  { id: "brownstone", title: "Historic Brownstone", desc: "Townhouse rewiring, 200A upgrade & gas-to-electric conversion" },
-  { id: "commercial", title: "Commercial Space", desc: "Midtown/FiDi office, retail, 3-phase power or warehouse" }
-];
 
 const BOROUGHS = ["Manhattan", "Brooklyn", "Queens", "Bronx", "Staten Island", "Long Island"];
 
@@ -50,6 +41,7 @@ interface NycLeadWizardProps {
 }
 
 export default function NycLeadWizard({ selectedService, onClearService }: NycLeadWizardProps) {
+  const { t } = useSite();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -98,10 +90,10 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
           <CheckCircle2 className="h-9 w-9" />
         </div>
         <h3 className="mt-5 text-2xl font-bold uppercase text-slate-900 dark:text-white">
-          Intake Registered Successfully
+          {t.leadWizard.successTitle}
         </h3>
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto">
-          Our NYC Master Electrician technical desk has received your request for <strong>{formData.service}</strong>. We will contact you within 15 minutes with scheduling options and the formal Certificate of Insurance (COI).
+          {t.leadWizard.successDesc}
         </p>
         <div className="mt-6 flex items-center justify-center gap-4">
           <button
@@ -109,7 +101,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
             onClick={() => { setSubmitted(false); setStep(1); }}
             className="text-xs font-bold uppercase tracking-wider text-[#b79f53] dark:text-[#ece8a6] hover:underline cursor-pointer"
           >
-            Submit Another Request
+            {t.leadWizard.submitAnotherBtn}
           </button>
         </div>
       </div>
@@ -128,7 +120,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
             </div>
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#b79f53] dark:text-[#ece8a6] block">
-                Pre-Selected Electrical Scope
+                {t.leadWizard.preSelectedBadge}
               </span>
               <span className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
                 {formData.service}
@@ -137,7 +129,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
           </div>
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline-block rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase">
-              Selected
+              {t.leadWizard.selectedBadge}
             </span>
             {onClearService && (
               <button
@@ -145,7 +137,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
                 onClick={onClearService}
                 className="text-[11px] font-bold text-slate-500 hover:text-slate-900 dark:hover:text-white underline cursor-pointer"
               >
-                Change
+                {t.leadWizard.changeBtn}
               </button>
             )}
           </div>
@@ -156,17 +148,17 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
       <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-6 mb-8 text-xs font-bold uppercase tracking-wider">
         <div className={`flex items-center gap-2 ${step >= 1 ? "text-[#b79f53] dark:text-[#ece8a6]" : "text-slate-400"}`}>
           <span className="flex h-6 w-6 items-center justify-center rounded-full border border-current text-[11px]">1</span>
-          <span>Property</span>
+          <span>{t.leadWizard.step1Title}</span>
         </div>
         <div className="h-0.5 w-12 bg-slate-200 dark:bg-slate-800" />
         <div className={`flex items-center gap-2 ${step >= 2 ? "text-[#b79f53] dark:text-[#ece8a6]" : "text-slate-400"}`}>
           <span className="flex h-6 w-6 items-center justify-center rounded-full border border-current text-[11px]">2</span>
-          <span>Service</span>
+          <span>{t.leadWizard.step2Title}</span>
         </div>
         <div className="h-0.5 w-12 bg-slate-200 dark:bg-slate-800" />
         <div className={`flex items-center gap-2 ${step >= 3 ? "text-[#b79f53] dark:text-[#ece8a6]" : "text-slate-400"}`}>
           <span className="flex h-6 w-6 items-center justify-center rounded-full border border-current text-[11px]">3</span>
-          <span>Contact</span>
+          <span>{t.leadWizard.step3Title}</span>
         </div>
       </div>
 
@@ -175,11 +167,14 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
         {step === 1 && (
           <div className="space-y-6">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
-                Select NYC Property Type
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                {t.leadWizard.propStepHeader}
               </label>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-3">
+                {t.leadWizard.propStepDesc}
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {PROPERTY_TYPES.map((pt) => (
+                {t.leadWizard.propertyTypes.map((pt) => (
                   <button
                     key={pt.id}
                     type="button"
@@ -199,7 +194,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-                NYC Borough Location
+                {t.leadWizard.selectBoroughLabel}
               </label>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                 {BOROUGHS.map((b) => (
@@ -225,7 +220,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
                 onClick={() => setStep(2)}
                 className="gold-gradient-btn inline-flex items-center gap-2 rounded-xl px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-md cursor-pointer active:scale-95 transition-transform"
               >
-                <span>Continue to Service Scope</span>
+                <span>{t.leadWizard.nextBtn}</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
             </div>
@@ -236,9 +231,12 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
         {step === 2 && (
           <div className="space-y-6">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-3">
-                Required Electrical Infrastructure Scope
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1">
+                {t.leadWizard.detailsStepHeader}
               </label>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-3">
+                {t.leadWizard.detailsStepDesc}
+              </p>
               <div className="space-y-2">
                 {PRECONFIGURED_SERVICES.map((srv) => (
                   <label
@@ -261,7 +259,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
                     </div>
                     {formData.service === srv && (
                       <span className="text-[10px] font-mono font-bold uppercase text-[#b79f53] dark:text-[#ece8a6] bg-[#b79f53]/10 px-2 py-0.5 rounded">
-                        Active Selection
+                        {t.leadWizard.selectedBadge}
                       </span>
                     )}
                   </label>
@@ -271,7 +269,7 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
-                Dispatch Urgency Level
+                {t.leadWizard.urgencyLabel}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <button
@@ -284,9 +282,9 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
                   }`}
                 >
                   <div className="text-xs font-bold flex items-center gap-1.5">
-                    <Clock className="h-4 w-4 text-sky-500" /> Standard Scheduled Inspection
+                    <Clock className="h-4 w-4 text-sky-500" /> {t.leadWizard.urgencyStandard}
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-1">Free estimate & formal DOB permit consultation</div>
+                  <div className="text-[11px] text-slate-500 mt-1">{t.leadWizard.urgencyStandardDesc}</div>
                 </button>
 
                 <button
@@ -299,9 +297,9 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
                   }`}
                 >
                   <div className="text-xs font-bold flex items-center gap-1.5 text-[#b79f53] dark:text-[#ece8a6]">
-                    <Zap className="h-4 w-4" /> 24/7 Immediate Emergency Dispatch
+                    <Zap className="h-4 w-4" /> {t.leadWizard.urgencyEmergency}
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-1">Power outage, DOB stop-work order or hazardous fault</div>
+                  <div className="text-[11px] text-slate-500 mt-1">{t.leadWizard.urgencyEmergencyDesc}</div>
                 </button>
               </div>
             </div>
@@ -312,14 +310,14 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
                 onClick={() => setStep(1)}
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
               >
-                <ArrowLeft className="h-4 w-4" /> Back
+                <ArrowLeft className="h-4 w-4" /> {t.leadWizard.backBtn}
               </button>
               <button
                 type="button"
                 onClick={() => setStep(3)}
                 className="gold-gradient-btn inline-flex items-center gap-2 rounded-xl px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-md cursor-pointer active:scale-95 transition-transform"
               >
-                <span>Continue to Contact Details</span>
+                <span>{t.leadWizard.nextBtn}</span>
                 <ArrowRight className="h-4 w-4" />
               </button>
             </div>
@@ -348,28 +346,28 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                  Full Name / Management Rep
+                  {t.leadWizard.fullNameLabel}
                 </label>
                 <input
                   type="text"
                   required
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                  placeholder="e.g. Michael Vance"
+                  placeholder={t.leadWizard.fullNamePlaceholder}
                   className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-[#b79f53] focus:outline-none"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                  Direct Phone Number
+                  {t.leadWizard.phoneLabel}
                 </label>
                 <input
                   type="tel"
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="e.g. (917) 555-0192"
+                  placeholder={t.leadWizard.phonePlaceholder}
                   className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-[#b79f53] focus:outline-none"
                 />
               </div>
@@ -377,30 +375,34 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                NYC Property Address & Unit #
+                {t.leadWizard.addressLabel}
               </label>
               <input
                 type="text"
                 required
                 value={formData.propertyAddress}
                 onChange={(e) => setFormData({ ...formData, propertyAddress: e.target.value })}
-                placeholder="e.g. 142 Franklin St, Apt 4B, New York, NY 10013"
+                placeholder={t.leadWizard.addressPlaceholder}
                 className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-[#b79f53] focus:outline-none"
               />
             </div>
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
-                DOB NOW Job # / Alteration Notes (Optional)
+                {t.leadWizard.dobJobNumberLabel}
               </label>
               <input
                 type="text"
                 value={formData.dobJobNumber}
                 onChange={(e) => setFormData({ ...formData, dobJobNumber: e.target.value })}
-                placeholder="e.g. DOB Job #B0091823 or Building Alteration packet"
+                placeholder={t.leadWizard.dobJobNumberPlaceholder}
                 className="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:border-[#b79f53] focus:outline-none"
               />
             </div>
+
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 pt-1">
+              {t.leadWizard.trustNote}
+            </p>
 
             <div className="pt-4 flex justify-between">
               <button
@@ -408,14 +410,14 @@ export default function NycLeadWizard({ selectedService, onClearService }: NycLe
                 onClick={() => setStep(2)}
                 className="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-2.5 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
               >
-                <ArrowLeft className="h-4 w-4" /> Back
+                <ArrowLeft className="h-4 w-4" /> {t.leadWizard.backBtn}
               </button>
               <button
                 type="submit"
                 disabled={loading}
                 className="gold-gradient-btn inline-flex items-center gap-2 rounded-xl px-7 py-3 text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-md cursor-pointer active:scale-95 transition-transform"
               >
-                <span>{loading ? "Registering..." : "Transmit to Master Electrician"}</span>
+                <span>{loading ? t.leadWizard.submittingBtn : t.leadWizard.submitBtn}</span>
                 <CheckCircle2 className="h-4 w-4" />
               </button>
             </div>
