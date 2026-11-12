@@ -4,7 +4,7 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-# AI Crawlers & Citation Engines Allowed
+# AI Crawlers & Citation Engines Allowed (2026 GEO Standard)
 User-agent: Googlebot
 Allow: /
 
@@ -20,10 +20,34 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: DeepSeekBot
+Allow: /
+
+User-agent: deepseek-ai
+Allow: /
+
+User-agent: GrokBot
+Allow: /
+
+User-agent: xAI-Bot
+Allow: /
+
+User-agent: MoonshotBot
+Allow: /
+
+User-agent: KimiBot
+Allow: /
+
 User-agent: Applebot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 # Block Scrapers
