@@ -129,8 +129,8 @@ export default function Footer() {
         {/* Compact Bottom Bar: Links on top on mobile, copyright below, centered and cleared from bottom bar */}
         <div className="border-t border-slate-200/80 dark:border-white/10 pt-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px] sm:text-[10.5px]">
           <div className="leading-relaxed text-slate-500 dark:text-slate-400">
-            <div>&copy; 2026 <strong className="text-slate-800 dark:text-slate-200">WERB SOLUTIONS LLC</strong>.</div>
-            <div className="text-[10px] text-slate-500/90 dark:text-slate-400/90 mt-0.5">{t.footer.copyright}</div>
+            <span className="block sm:inline">&copy; 2026 <strong className="text-slate-800 dark:text-slate-200">WERB SOLUTIONS LLC</strong>.</span>{" "}
+            <span className="block sm:inline text-[10px] sm:text-[10.5px] text-slate-500/90 dark:text-slate-400/90">{t.footer.copyright}</span>
           </div>
           <div className="flex items-center justify-center gap-3 font-medium">
             <Link href="/privacy" className="hover:text-[#c99818] dark:hover:text-[#e5d15e] transition-colors">{t.footer.privacyLink.split("&")[0].trim()}</Link>
