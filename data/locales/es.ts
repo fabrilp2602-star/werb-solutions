@@ -195,6 +195,8 @@ export const es: TranslationDictionary = {
   },
   aboutSection: {
     badge: "Contratista Oficial de NYC",
+    title: "Conectados para la Excelencia en la Ciudad de Nueva York",
+    text: "Con más de 15 años sirviendo a Manhattan, Brooklyn y Queens, WERB Solutions ofrece experiencia eléctrica de maestro matriculado que supera las más rigurosas inspecciones municipales y acuerdos de junta de edificios.",
     exploreBtn: "Explorar Directorio Completo de Servicios",
   },
   reviewsSection: {
@@ -292,7 +294,7 @@ export const es: TranslationDictionary = {
     privacyLink: "Política de Privacidad y NY SHIELD Act",
     termsLink: "Términos y Ley Laboral 240/241",
     cookiesLink: "Preferencias de Cookies",
-    copyright: "WERB SOLUTIONS LLC. Todos los derechos reservados. Ciudad de Nueva York.",
+    copyright: "Todos los derechos reservados a SinergIA Tech. Ciudad de Nueva York.",
     allRightsReserved: "Todos los derechos reservados",
   },
 };

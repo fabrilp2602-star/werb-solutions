@@ -195,6 +195,8 @@ export const en: TranslationDictionary = {
   },
   aboutSection: {
     badge: "Official NYC Contractor",
+    title: "Wired for Excellence Across New York City",
+    text: "With over 15 years serving Manhattan, Brooklyn and Queens, WERB Solutions delivers licensed master electrical expertise that passes rigorous building management boards and city inspections.",
     exploreBtn: "Explore Complete Services Directory",
   },
   reviewsSection: {
@@ -292,7 +294,7 @@ export const en: TranslationDictionary = {
     privacyLink: "Privacy Policy & NY SHIELD Act",
     termsLink: "Terms & Labor Law 240/241",
     cookiesLink: "Cookie Consent Preferences",
-    copyright: "WERB SOLUTIONS LLC. All Rights Reserved. New York City.",
+    copyright: "All Rights Reserved to SinergIA Tech. New York City.",
     allRightsReserved: "All Rights Reserved",
   },
 };

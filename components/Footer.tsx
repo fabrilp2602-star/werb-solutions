@@ -14,7 +14,7 @@ export default function Footer() {
   const { texts, t } = useSite();
 
   return (
-    <footer className="border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-100/90 dark:bg-[#050810] text-slate-600 dark:text-slate-400 text-xs pb-20 md:pb-6 pt-6 sm:pt-8 transition-colors">
+    <footer className="border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-100/90 dark:bg-[#050810] text-slate-600 dark:text-slate-400 text-xs pb-32 md:pb-8 pt-6 sm:pt-8 transition-colors">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Compact 4-Column Grid */}
@@ -126,17 +126,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Compact Single-line Bottom Bar */}
-        <div className="border-t border-slate-200/80 dark:border-white/10 pt-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10.5px]">
-          <div>
+        {/* Compact Bottom Bar: Links on top on mobile, copyright below, centered and cleared from bottom bar */}
+        <div className="border-t border-slate-200/80 dark:border-white/10 pt-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px] sm:text-[10.5px]">
+          <div className="leading-relaxed text-slate-500 dark:text-slate-400">
             &copy; 2026 <strong className="text-slate-800 dark:text-slate-200">WERB SOLUTIONS LLC</strong>. {t.footer.copyright}
           </div>
-          <div className="flex items-center gap-3">
-            <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white">{t.footer.privacyLink.split("&")[0].trim()}</Link>
-            <span>•</span>
-            <Link href="/terms" className="hover:text-slate-900 dark:hover:text-white">{t.footer.termsLink.split("&")[0].trim()}</Link>
-            <span>•</span>
-            <button type="button" onClick={openCookiePreferences} className="hover:text-slate-900 dark:hover:text-white cursor-pointer">
+          <div className="flex items-center justify-center gap-3 font-medium">
+            <Link href="/privacy" className="hover:text-[#c99818] dark:hover:text-[#e5d15e] transition-colors">{t.footer.privacyLink.split("&")[0].trim()}</Link>
+            <span className="text-slate-400 dark:text-slate-600">•</span>
+            <Link href="/terms" className="hover:text-[#c99818] dark:hover:text-[#e5d15e] transition-colors">{t.footer.termsLink.split("&")[0].trim()}</Link>
+            <span className="text-slate-400 dark:text-slate-600">•</span>
+            <button type="button" onClick={openCookiePreferences} className="hover:text-[#c99818] dark:hover:text-[#e5d15e] transition-colors cursor-pointer">
               Cookies
             </button>
           </div>

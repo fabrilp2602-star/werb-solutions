@@ -195,6 +195,8 @@ export const zh: TranslationDictionary = {
   },
   aboutSection: {
     badge: "纽约市官方注册承包商",
+    title: "精工布线，卓越信誉筑誉纽约",
+    text: "深耕曼哈顿、布鲁克林及皇后区十五载，WERB Solutions凭借房屋局甲级持证电气工程师专业实力，全方位确保通过严苛的大厦物业管委会审核与官方市政检查。",
     exploreBtn: "浏览完整工程服务名录",
   },
   reviewsSection: {
@@ -292,7 +294,7 @@ export const zh: TranslationDictionary = {
     privacyLink: "隐私政策与NY SHIELD法案",
     termsLink: "服务条款与劳动法240/241",
     cookiesLink: "Cookie偏好设置",
-    copyright: "WERB SOLUTIONS LLC. 保留所有权利。纽约市。",
+    copyright: "所有权利保留至 SinergIA Tech。纽约市。",
     allRightsReserved: "保留所有权利",
   },
 };

@@ -109,6 +109,8 @@ export interface TranslationDictionary {
   };
   aboutSection: {
     badge: string;
+    title: string;
+    text: string;
     exploreBtn: string;
   };
   reviewsSection: {

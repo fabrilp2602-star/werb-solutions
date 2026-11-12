@@ -255,10 +255,10 @@ export default function Home() {
             {t.aboutSection.badge}
           </span>
           <h2 className="mt-2 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
-            {texts.aboutTitle}
+            {t.aboutSection.title || texts.aboutTitle}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-            {texts.aboutText}
+            {t.aboutSection.text || texts.aboutText}
           </p>
           <div className="mt-8">
             <Link

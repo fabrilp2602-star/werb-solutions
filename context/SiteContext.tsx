@@ -89,25 +89,20 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
         setThemeState("dark");
       }
 
-      // Read saved locale or URL search params, or detect browser language
+      // Locale resolution: default strictly to English ('en')
+      // If URL explicitly sets ?lang=..., respect it.
+      // If user previously chose a language in this browser session, respect it.
+      // Otherwise, stay on 'en' to avoid unexpected foreign language initial load.
       const searchParams = new URLSearchParams(window.location.search);
       const urlLang = searchParams.get("lang") as Locale | null;
       const savedLocale = localStorage.getItem("werb_locale") as Locale | null;
+
       if (urlLang && (urlLang === "en" || urlLang === "es" || urlLang === "zh" || urlLang === "ru")) {
         setLocaleState(urlLang);
       } else if (savedLocale && (savedLocale === "en" || savedLocale === "es" || savedLocale === "zh" || savedLocale === "ru")) {
         setLocaleState(savedLocale);
-      } else if (typeof navigator !== "undefined" && navigator.language) {
-        const navLang = navigator.language.toLowerCase();
-        if (navLang.startsWith("es")) {
-          setLocaleState("es");
-        } else if (navLang.startsWith("zh")) {
-          setLocaleState("zh");
-        } else if (navLang.startsWith("ru")) {
-          setLocaleState("ru");
-        } else {
-          setLocaleState("en");
-        }
+      } else {
+        setLocaleState("en");
       }
 
       const authState = sessionStorage.getItem("werb_admin_auth");

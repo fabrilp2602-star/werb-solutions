@@ -195,6 +195,8 @@ export const ru: TranslationDictionary = {
   },
   aboutSection: {
     badge: "Официальный подрядчик в Нью-Йорке",
+    title: "Безупречный электромонтаж по всему Нью-Йорку",
+    text: "Более 15 лет работы в Манхэттене, Бруклине и Квинсе. WERB Solutions предоставляет услуги лицензированного мастера-электрика, гарантируя прохождение строжайших проверок управляющих советов и городских инспекций.",
     exploreBtn: "Открыть полный каталог услуг",
   },
   reviewsSection: {
@@ -292,7 +294,7 @@ export const ru: TranslationDictionary = {
     privacyLink: "Политика конфиденциальности и NY SHIELD",
     termsLink: "Условия и трудовое право 240/241",
     cookiesLink: "Настройки файлов cookie",
-    copyright: "WERB SOLUTIONS LLC. Все права защищены. Нью-Йорк.",
+    copyright: "Все права защищены за SinergIA Tech. Нью-Йорк.",
     allRightsReserved: "Все права защищены",
   },
 };
