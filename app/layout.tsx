@@ -40,7 +40,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://werbsolutions.com",
     siteName: "WERB Solutions LLC",
     title: "WERB Solutions | NYC Licensed Master Electrician 24/7",
     description: "Class-A NYC DOB Licensed Master Electrician. Emergency dispatch <45m in Manhattan & Brooklyn, 200A panel upgrades, $2M COI.",
@@ -51,20 +50,6 @@ export const metadata: Metadata = {
         height: 630,
         type: "image/png",
         alt: "WERB Solutions NYC Licensed Master Electrician",
-      },
-      {
-        url: "/media/og_whatsapp_share.jpg",
-        width: 1200,
-        height: 630,
-        type: "image/jpeg",
-        alt: "WERB Solutions NYC Licensed Master Electrician",
-      },
-      {
-        url: "/media/logo_wapp.png",
-        width: 1098,
-        height: 341,
-        type: "image/png",
-        alt: "WERB Solutions Logo",
       },
     ],
   },
