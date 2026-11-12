@@ -70,7 +70,7 @@ const SiteContext = createContext<SiteContextType>({
 
 export function SiteProvider({ children }: { children: React.ReactNode }) {
   const [texts, setTexts] = useState<SiteContentTexts>(DEFAULT_TEXTS);
-  const [theme, setThemeState] = useState<"dark" | "light">("dark");
+  const [theme, setThemeState] = useState<"dark" | "light">("light");
   const [locale, setLocaleState] = useState<Locale>("en");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [mounted, setMounted] = useState(false);
@@ -86,7 +86,7 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
       if (savedTheme === "light" || savedTheme === "dark") {
         setThemeState(savedTheme);
       } else {
-        setThemeState("dark");
+        setThemeState("light");
       }
 
       // Locale resolution: default strictly to English ('en')

@@ -14,7 +14,7 @@ export default function Footer() {
   const { texts, t } = useSite();
 
   return (
-    <footer className="border-t border-slate-200/80 dark:border-white/[0.08] bg-slate-100/90 dark:bg-[#050810] text-slate-600 dark:text-slate-400 text-xs pb-32 md:pb-8 pt-6 sm:pt-8 transition-colors">
+    <footer className="border-t border-white/[0.08] bg-[#050810] text-slate-400 text-xs pb-32 md:pb-8 pt-6 sm:pt-8 transition-colors">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Compact 4-Column Grid */}
@@ -31,7 +31,7 @@ export default function Footer() {
                 className="object-contain object-left drop-shadow-sm brightness-105"
               />
             </div>
-            <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">
+            <p className="text-slate-400 text-[11px] leading-relaxed">
               {t.footer.brandDesc}
             </p>
             <div>
@@ -44,7 +44,7 @@ export default function Footer() {
 
           {/* Col 2: Services Directory */}
           <div>
-            <h3 className="text-[11px] font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2 font-mono">
+            <h3 className="text-[11px] font-bold uppercase tracking-wider text-white mb-2 font-mono">
               {t.footer.servicesTitle}
             </h3>
             <ul className="space-y-1 text-[11px]">
@@ -73,7 +73,7 @@ export default function Footer() {
 
           {/* Col 3: Borough Coverage */}
           <div>
-            <h3 className="text-[11px] font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2 font-mono">
+            <h3 className="text-[11px] font-bold uppercase tracking-wider text-white mb-2 font-mono">
               {t.footer.dispatchTitle}
             </h3>
             <ul className="space-y-1 text-[11px]">
@@ -88,7 +88,7 @@ export default function Footer() {
               <li className="pt-1.5">
                 <a
                   href={`tel:${texts.phone.replace(/[^+\d]/g, "")}`}
-                  className="inline-flex items-center gap-1.5 text-slate-900 dark:text-white font-mono font-bold hover:text-[#c99818] dark:hover:text-[#e5d15e] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-white font-mono font-bold hover:text-[#e5d15e] transition-colors"
                 >
                   <PhoneCall className="h-3 w-3 text-[#c99818] dark:text-[#e5d15e]" />
                   <span>{texts.phone}</span>
@@ -99,7 +99,7 @@ export default function Footer() {
 
           {/* Col 4: Regulatory & Legal Compliance */}
           <div>
-            <h3 className="text-[11px] font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2 font-mono">
+            <h3 className="text-[11px] font-bold uppercase tracking-wider text-white mb-2 font-mono">
               {t.footer.complianceTitle}
             </h3>
             <ul className="space-y-1 text-[11px]">
@@ -127,10 +127,9 @@ export default function Footer() {
         </div>
 
         {/* Compact Bottom Bar: Links on top on mobile, copyright below, centered and cleared from bottom bar */}
-        <div className="border-t border-slate-200/80 dark:border-white/10 pt-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px] sm:text-[10.5px]">
-          <div className="leading-relaxed text-slate-500 dark:text-slate-400">
-            <span className="block sm:inline">&copy; 2026 <strong className="text-slate-800 dark:text-slate-200">WERB SOLUTIONS LLC</strong>.</span>{" "}
-            <span className="block sm:inline text-[10px] sm:text-[10.5px] text-slate-500/90 dark:text-slate-400/90">{t.footer.copyright}</span>
+        <div className="border-t border-white/10 pt-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px] sm:text-[10.5px]">
+          <div className="leading-relaxed text-slate-400">
+            <span className="block sm:inline text-[10px] sm:text-[10.5px] text-slate-400">2026 WERB SOLUTIONS LLC. Todos los derechos reservados a SinergIA Tech. Ciudad de Nueva York.</span>
           </div>
           <div className="flex items-center justify-center gap-3 font-medium">
             <Link href="/privacy" className="hover:text-[#c99818] dark:hover:text-[#e5d15e] transition-colors">{t.footer.privacyLink.split("&")[0].trim()}</Link>

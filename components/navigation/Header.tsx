@@ -53,7 +53,7 @@ export default function Header() {
         <Link href="/" className="flex items-center group py-0.5" aria-label="WERB Solutions NYC">
           <div className="relative h-10 w-44 sm:w-48 transition-transform duration-200 group-hover:scale-[1.02]">
             <Image
-              src="/media/logo_navbar.webp"
+              src="/media/legacy_logo_white.webp"
               alt="WERB Solutions"
               fill
               sizes="200px"

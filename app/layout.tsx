@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     description: "Class-A NYC DOB Licensed Master Electrician. Emergency dispatch <45m in Manhattan & Brooklyn, 200A panel upgrades, $2M COI.",
     images: [
       {
-        url: "https://werbsolutions.com/media/brand_logo_master_gemini.jpg",
+        url: "https://werbsolutions.com/media/legacy_logo_white.webp",
         width: 1200,
         height: 630,
         alt: "WERB Solutions NYC Licensed Master Electrician",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "WERB Solutions | NYC Licensed Master Electrician 24/7",
     description: "NYC DOB Licensed Master Electrician. Emergency dispatch <45m, 200A panel upgrades, $2M COI insurance.",
-    images: ["https://werbsolutions.com/media/brand_logo_master_gemini.jpg"],
+    images: ["https://werbsolutions.com/media/legacy_logo_white.webp"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -147,14 +147,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="light">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-[#f8fafc] dark:bg-[#050810] text-[#090e17] dark:text-[#f8fafc] antialiased selection:bg-[#e6b93e]/30 selection:text-[#e6b93e]">
+      <body className="min-h-screen bg-[#eef7f3] dark:bg-[#050810] text-[#090e17] dark:text-[#f8fafc] antialiased selection:bg-[#e6b93e]/30 selection:text-[#e6b93e]">
         <SiteProvider>
           {children}
           {/* Universal Cookie & Consent Notice (USA Legal Standard) */}

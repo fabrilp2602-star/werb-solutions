@@ -233,8 +233,8 @@ export default function ServicesPage() {
             className="object-cover opacity-35 scale-105"
           />
         </div>
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#050810] via-black/85 to-black/60" />
-        <div className="absolute inset-0 -z-10 bg-radial-vignette opacity-80" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#050810]/95 via-[#050810]/62 to-[#050810]/10" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#050810]/55 via-transparent to-transparent" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center sm:text-left">
           
