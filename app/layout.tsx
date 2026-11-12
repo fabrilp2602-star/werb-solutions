@@ -10,8 +10,10 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://werbsolutions.com");
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://werbsolutions.com"),
+  metadataBase: new URL(siteUrl),
   title: "WERB Solutions | NYC Licensed Master Electrician 24/7",
   description: "Licensed Master Electrician in NYC. 24/7 Emergency electrical dispatch, 200A panel upgrades, EV charging, DOB NOW™ filings for Manhattan, Brooklyn, Queens.",
   keywords: [
