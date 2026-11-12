@@ -45,11 +45,11 @@ export const metadata: Metadata = {
     description: "Class-A NYC DOB Licensed Master Electrician. Emergency dispatch <45m in Manhattan & Brooklyn, 200A panel upgrades, $2M COI.",
     images: [
       {
-        url: "/media/og_whatsapp_share.png",
-        width: 1200,
-        height: 630,
+        url: "/media/logo_wapp.png",
+        width: 1098,
+        height: 341,
         type: "image/png",
-        alt: "WERB Solutions NYC Licensed Master Electrician",
+        alt: "WERB Solutions",
       },
     ],
   },
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "WERB Solutions | NYC Licensed Master Electrician 24/7",
     description: "NYC DOB Licensed Master Electrician. Emergency dispatch <45m, 200A panel upgrades, $2M COI insurance.",
-    images: ["/media/og_whatsapp_share.png"],
+    images: ["/media/logo_wapp.png"],
   },
   icons: {
     icon: "/favicon.ico",
