@@ -76,8 +76,8 @@ const jsonLd = {
       "legalName": "WERB Solutions LLC",
       "alternateName": ["WERB Electrical NYC", "WERB Solutions"],
       "url": "https://werbsolutions.com",
-      "logo": "https://werbsolutions.com/media/brand_logo_master_gemini.jpg",
-      "image": "https://werbsolutions.com/media/brand_logo_master_gemini.jpg",
+      "logo": "https://werb-solutions-two.vercel.app/media/logo_wapp.png",
+      "image": "https://werb-solutions-two.vercel.app/media/logo_wapp.png",
       "telephone": "+19295847647",
       "email": "info@werbsolutions.com",
       "priceRange": "$$",
@@ -151,6 +151,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="light">
       <head>
+        <meta property="og:title" content="WERB Solutions | NYC Licensed Master Electrician 24/7" />
+        <meta property="og:description" content="Class-A NYC DOB Licensed Master Electrician. Emergency dispatch &lt;45m in Manhattan &amp; Brooklyn, 200A panel upgrades, $2M COI." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://werb-solutions-two.vercel.app/media/logo_wapp.png" />
+        <meta property="og:image:secure_url" content="https://werb-solutions-two.vercel.app/media/logo_wapp.png" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1098" />
+        <meta property="og:image:height" content="341" />
+        <meta property="og:image:alt" content="WERB Solutions" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://werb-solutions-two.vercel.app/media/logo_wapp.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
