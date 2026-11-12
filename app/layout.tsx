@@ -10,7 +10,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://werbsolutions.com");
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://werb-solutions-two.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
