@@ -27,6 +27,11 @@ export const zh: TranslationDictionary = {
       dob: "🏛️ DOB NOW™ 官方直报",
     },
   },
+  heroActions: {
+    schedule: "预约",
+    catalog: "目录",
+    call: "24/7 呼叫",
+  },
   sliderMeta: {
     nextIntake: "即将展示",
     disciplineLabel: "专业工程",

@@ -27,6 +27,11 @@ export const en: TranslationDictionary = {
       dob: "🏛️ DOB NOW™ Direct Filing",
     },
   },
+  heroActions: {
+    schedule: "Schedule",
+    catalog: "Catalog",
+    call: "24/7 Call",
+  },
   sliderMeta: {
     nextIntake: "NEXT INTAKE",
     disciplineLabel: "DISCIPLINE",

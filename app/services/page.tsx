@@ -222,7 +222,7 @@ export default function ServicesPage() {
       {/* 1. DEDICATED LUXURY SERVICES HEADER (No HeroSlider carousel on Services page) */}
       <section className="relative isolate overflow-hidden bg-black text-white pt-32 pb-16 sm:pt-36 lg:pt-40 border-b border-white/10">
         
-        {/* Background Image with Cinematic Dark Gradient */}
+        {/* Background Image with Cinematic Clear Gradient (clearly visible) */}
         <div className="absolute inset-0 -z-20">
           <Image
             src="/media/service_panel_verification_desktop.webp"
@@ -230,11 +230,11 @@ export default function ServicesPage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-35 scale-105"
+            className="object-cover opacity-70 scale-105"
           />
         </div>
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#050810]/95 via-[#050810]/62 to-[#050810]/10" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#050810]/55 via-transparent to-transparent" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#050810]/85 via-[#050810]/40 to-transparent" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#050810]/80 via-transparent to-[#050810]/40" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center sm:text-left">
           

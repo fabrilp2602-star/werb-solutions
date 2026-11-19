@@ -27,6 +27,11 @@ export const ru: TranslationDictionary = {
       dob: "🏛️ Прямая подача в DOB NOW™",
     },
   },
+  heroActions: {
+    schedule: "Запись",
+    catalog: "Каталог",
+    call: "24/7 Звонок",
+  },
   sliderMeta: {
     nextIntake: "СЛЕДУЮЩИЙ РАЗДЕЛ",
     disciplineLabel: "ДИСЦИПЛИНА",

@@ -27,6 +27,11 @@ export const es: TranslationDictionary = {
       dob: "🏛️ Radicación Directa DOB NOW™",
     },
   },
+  heroActions: {
+    schedule: "Agendar",
+    catalog: "Catálogo",
+    call: "24/7 Llamada",
+  },
   sliderMeta: {
     nextIntake: "SIGUIENTE DISCIPLINA",
     disciplineLabel: "DISCIPLINA",

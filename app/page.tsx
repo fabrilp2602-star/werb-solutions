@@ -248,22 +248,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
-      <section id="about" className="relative z-10 border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-[#050810] py-20 scroll-mt-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
+      {/* ABOUT SECTION WITH PENTHOUSE SKYLINE BACKGROUND */}
+      <section id="about" className="relative z-10 border-t border-slate-200 dark:border-slate-800/80 overflow-hidden py-24 sm:py-32 scroll-mt-20">
+        {/* Background Image */}
+        <div className="absolute inset-0 -z-20">
+          <Image
+            src="/media/hero_penthouse_skyline_desktop.webp"
+            alt="New York Penthouse Skyline"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+        {/* Luxury Vignette Overlay for dark/light clarity - subtle and translucent */}
+        <div className="absolute inset-0 -z-10 bg-black/40 dark:bg-black/50" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
+
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center text-white">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#e6b93e]">
             {t.aboutSection.badge}
           </span>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
+          <h2 className="mt-2 text-3xl sm:text-5xl font-serif font-bold uppercase text-white drop-shadow-md">
             {t.aboutSection.title || texts.aboutTitle}
           </h2>
-          <p className="mt-5 text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-5 text-sm sm:text-base text-slate-200 max-w-3xl mx-auto leading-relaxed font-light">
             {t.aboutSection.text || texts.aboutText}
           </p>
           <div className="mt-8">
             <Link
               href="/services"
-              className="gold-gradient-btn inline-flex items-center gap-2 rounded-xl px-7 py-3 text-xs font-bold uppercase tracking-wider text-black shadow-md"
+              className="gold-gradient-btn inline-flex items-center gap-2 rounded-xl px-7 py-3 text-xs font-bold uppercase tracking-wider text-black shadow-xl hover:scale-105 active:scale-95 transition-all"
             >
               <span>{t.aboutSection.exploreBtn}</span>
               <ArrowRight className="h-4 w-4" />

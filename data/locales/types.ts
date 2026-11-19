@@ -27,6 +27,11 @@ export interface TranslationDictionary {
       dob: string;
     };
   };
+  heroActions: {
+    schedule: string;
+    catalog: string;
+    call: string;
+  };
   sliderMeta: {
     nextIntake: string;
     disciplineLabel: string;

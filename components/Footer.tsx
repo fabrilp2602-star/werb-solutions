@@ -76,16 +76,16 @@ export default function Footer() {
             <h3 className="text-[11px] font-bold uppercase tracking-wider text-white mb-2 font-mono">
               {t.footer.dispatchTitle}
             </h3>
-            <ul className="space-y-1 text-[11px]">
-              <li className="flex items-center justify-between">
+            <ul className="space-y-1.5 text-[11px]">
+              <li className="flex items-center gap-2">
                 <span>{t.footer.dispatchManhattan}</span>
-                <span className="font-mono text-[#c99818] dark:text-[#e5d15e]">&lt;45 min</span>
+                <span className="font-mono font-bold text-[#c99818] dark:text-[#e5d15e] bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[10px]">&lt;45 min</span>
               </li>
-              <li className="flex items-center justify-between">
+              <li className="flex items-center gap-2">
                 <span>{t.footer.dispatchBrooklyn}</span>
-                <span className="font-mono text-[#c99818] dark:text-[#e5d15e]">&lt;30 min</span>
+                <span className="font-mono font-bold text-[#c99818] dark:text-[#e5d15e] bg-white/5 border border-white/10 px-1.5 py-0.5 rounded text-[10px]">&lt;30 min</span>
               </li>
-              <li className="pt-1.5">
+              <li className="pt-2">
                 <a
                   href={`tel:${texts.phone.replace(/[^+\d]/g, "")}`}
                   className="inline-flex items-center gap-1.5 text-white font-mono font-bold hover:text-[#e5d15e] transition-colors"
@@ -129,7 +129,9 @@ export default function Footer() {
         {/* Compact Bottom Bar: Links on top on mobile, copyright below, centered and cleared from bottom bar */}
         <div className="border-t border-white/10 pt-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-[11px] sm:text-[10.5px]">
           <div className="leading-relaxed text-slate-400">
-            <span className="block sm:inline text-[10px] sm:text-[10.5px] text-slate-400">2026 WERB SOLUTIONS LLC. Todos los derechos reservados a SinergIA Tech. Ciudad de Nueva York.</span>
+            <span className="block sm:inline text-[10px] sm:text-[10.5px] text-slate-400">
+              © 2026 WERB SOLUTIONS LLC. {t.footer.copyright}
+            </span>
           </div>
           <div className="flex items-center justify-center gap-3 font-medium">
             <Link href="/privacy" className="hover:text-[#c99818] dark:hover:text-[#e5d15e] transition-colors">{t.footer.privacyLink.split("&")[0].trim()}</Link>
