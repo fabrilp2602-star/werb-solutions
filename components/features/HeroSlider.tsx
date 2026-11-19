@@ -37,14 +37,19 @@ export default function HeroSlider({
   phone = "+1 (929) 584-7647",
   showStats = false,
 }: HeroSliderProps) {
-  const { t } = useSite();
+  const { t, texts } = useSite();
   const rail = useRail(HERO_SLIDES.length);
 
+  // Altura exacta: 100svh menos los 32px (h-8) de la marquesina superior
+  const heroHeightClass = texts.marqueeEnabled
+    ? "h-[calc(100svh-32px)] min-h-[calc(100svh-32px)] max-h-[calc(100svh-32px)] mt-8"
+    : "h-[100svh] min-h-[100svh] max-h-[100svh] mt-0";
+
   return (
-    <section className="relative z-10 select-none overflow-hidden bg-black text-white" aria-label="NYC Engineered Electrical Services">
+    <section className={`relative z-10 select-none overflow-hidden bg-black text-white ${heroHeightClass}`} aria-label="NYC Engineered Electrical Services">
       
-      {/* 1. HERO MAIN VIEWPORT (Ocupa la pantalla completa min-h-screen / min-h-[100svh] fija, sin saltos) */}
-      <div className="relative isolate flex min-h-screen min-h-[100svh] items-center overflow-hidden bg-black pt-16 pb-14 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-16">
+      {/* 1. HERO MAIN VIEWPORT (Ocupa exactamente el 100% de la pantalla menos la marquesina, sin desbordarse ni 1px) */}
+      <div className="relative isolate flex h-full w-full items-center justify-center overflow-hidden bg-black pt-14 pb-8 sm:pt-20 sm:pb-12 lg:pt-24 lg:pb-14">
         
         {/* Background crossfade images (FULL BLEED COVER with responsive mobile 9:16 and desktop 16:9) */}
         <div className="absolute inset-0 -z-20">
@@ -88,7 +93,7 @@ export default function HeroSlider({
         {/* Liquid dark vignette gradients: Left gradient ONLY on md+ desktop, NEVER on mobile */}
         <div className="absolute inset-0 -z-10 hidden md:block bg-gradient-to-r from-black/95 via-black/80 to-black/30 lg:from-black/95 lg:via-black/70 lg:to-black/20" />
         {/* Soft top/bottom cinematic gradient for header and bottom bar readability */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-black/30 to-black/80 md:from-black/85 md:via-transparent md:to-black/90" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-black/25 to-black/80 md:from-black/85 md:via-transparent md:to-black/90" />
 
         <div className="mx-auto grid w-full max-w-7xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
           
@@ -128,8 +133,8 @@ export default function HeroSlider({
         </div>
       </div>
 
-      {/* 2. STATS STRIP (Directamente bajo el hero con contadores animados y traducciones dinámicas) */}
-      <HeroStatsStrip />
+      {/* 2. STATS STRIP (Condicional estricto) */}
+      {showStats && <HeroStatsStrip />}
 
     </section>
   );
