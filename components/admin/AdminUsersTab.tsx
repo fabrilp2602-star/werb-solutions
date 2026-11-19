@@ -21,14 +21,24 @@ import { AdminUser } from "@/types/admin";
 
 interface AdminUsersTabProps {
   isDark: boolean;
+  isCreateModalOpen?: boolean;
+  setIsCreateModalOpen?: (open: boolean) => void;
+  onUsersUpdated?: () => void;
 }
 
-export function AdminUsersTab({ isDark }: AdminUsersTabProps) {
+export function AdminUsersTab({
+  isDark,
+  isCreateModalOpen,
+  setIsCreateModalOpen,
+  onUsersUpdated,
+}: AdminUsersTabProps) {
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState<string>("all");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [internalModalOpen, setInternalModalOpen] = useState(false);
+  const isModalOpen = isCreateModalOpen !== undefined ? isCreateModalOpen : internalModalOpen;
+  const setIsModalOpen = setIsCreateModalOpen || setInternalModalOpen;
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
 
   // New user form state
@@ -84,6 +94,7 @@ export function AdminUsersTab({ isDark }: AdminUsersTabProps) {
         setFeedbackMsg("Usuario creado exitosamente");
         setTimeout(() => setFeedbackMsg(null), 3000);
         loadUsers();
+        onUsersUpdated?.();
       } else {
         alert(data.error || "Error al crear usuario");
       }
@@ -102,6 +113,7 @@ export function AdminUsersTab({ isDark }: AdminUsersTabProps) {
         setUsers((prev) => prev.filter((u) => u.id !== id));
         setFeedbackMsg("Usuario eliminado");
         setTimeout(() => setFeedbackMsg(null), 3000);
+        onUsersUpdated?.();
       }
     } catch (e) {
       console.error(e);

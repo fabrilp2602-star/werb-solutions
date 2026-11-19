@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { LogOut, LucideIcon } from "lucide-react";
 
 export interface NavItemConfig {
@@ -38,8 +39,14 @@ export function AdminSidebar({
         }`}
       >
         <div className="flex items-center gap-3 w-full">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#ece8a6] to-[#b79f53] flex items-center justify-center text-[#1a1608] font-black text-xs shrink-0 shadow-sm">
-            WS
+          <div className="relative h-9 w-9 rounded-xl overflow-hidden bg-black/40 border border-white/10 flex items-center justify-center shrink-0 p-1 shadow-sm">
+            <Image
+              src="/media/brand_logo_symbol_transparent.png"
+              alt="WERB Solutions"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
           </div>
           <div className="flex flex-col leading-none min-w-0">
             <div className="flex items-center gap-1.5">

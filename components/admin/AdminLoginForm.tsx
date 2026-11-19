@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Lock, Sun, Moon, AlertCircle } from "lucide-react";
 
@@ -79,8 +80,14 @@ export function AdminLoginForm({
         }`}
       >
         <div className="text-center mb-8">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ece8a6] to-[#b79f53] text-[#1a1608] mb-4 shadow-lg shadow-[#b79f53]/20">
-            <Lock className="h-6 w-6 stroke-[2.5]" />
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-black/50 border border-white/15 p-2 mb-4 shadow-lg shadow-[#b79f53]/20">
+            <Image
+              src="/media/brand_logo_symbol_transparent.png"
+              alt="WERB Solutions"
+              width={48}
+              height={48}
+              className="object-contain"
+            />
           </div>
           <h1 className="text-lg font-bold uppercase tracking-wider font-sans">
             WERB Solutions • Admin Portal

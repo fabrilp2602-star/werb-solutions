@@ -36,6 +36,7 @@ export default function AdminPage() {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [pendingTexts, setPendingTexts] = useState<SiteContentTexts>(texts);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false);
 
   // Sync pending texts when site texts update
   useEffect(() => {
@@ -212,6 +213,7 @@ export default function AdminPage() {
           leadSearch={leadSearch}
           setLeadSearch={setLeadSearch}
           toggleTheme={toggleTheme}
+          onOpenCreateUser={() => setIsCreateUserModalOpen(true)}
         />
 
         {/* Mobile Drawer */}
@@ -296,7 +298,12 @@ export default function AdminPage() {
             )}
 
             {activeTab === "users" && (
-              <AdminUsersTab isDark={isDark} />
+              <AdminUsersTab
+                isDark={isDark}
+                isCreateModalOpen={isCreateUserModalOpen}
+                setIsCreateModalOpen={setIsCreateUserModalOpen}
+                onUsersUpdated={loadUsersCount}
+              />
             )}
 
             {activeTab === "settings" && (

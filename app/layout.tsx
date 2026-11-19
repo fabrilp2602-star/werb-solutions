@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { SiteProvider } from "@/context/SiteContext";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
+import { AnalyticsTracking } from "@/components/analytics/AnalyticsTracking";
 
 export const viewport: Viewport = {
   themeColor: "#050810",
@@ -172,6 +173,8 @@ export default function RootLayout({
           {children}
           {/* Universal Cookie & Consent Notice (USA Legal Standard) */}
           <AnalyticsConsent />
+          {/* Deferred Zero-Blocking Analytics Tracking (GA4, GTM, Meta Pixel) */}
+          <AnalyticsTracking />
         </SiteProvider>
       </body>
     </html>
