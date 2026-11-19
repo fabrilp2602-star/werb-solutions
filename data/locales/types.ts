@@ -32,6 +32,13 @@ export interface TranslationDictionary {
     catalog: string;
     call: string;
   };
+  heroPills: {
+    highVoltage: string;
+    solar: string;
+    lighting: string;
+    fireAlarm: string;
+    demolition: string;
+  };
   sliderMeta: {
     nextIntake: string;
     disciplineLabel: string;

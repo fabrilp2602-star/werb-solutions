@@ -32,6 +32,13 @@ export const es: TranslationDictionary = {
     catalog: "Catálogo",
     call: "24/7 Llamada",
   },
+  heroPills: {
+    highVoltage: "⚡ Infraestructura",
+    solar: "☀️ Energía",
+    lighting: "💡 Luces",
+    fireAlarm: "🚨 FDNY",
+    demolition: "🏗️ Obras",
+  },
   sliderMeta: {
     nextIntake: "SIGUIENTE DISCIPLINA",
     disciplineLabel: "DISCIPLINA",

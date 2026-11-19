@@ -32,6 +32,13 @@ export const ru: TranslationDictionary = {
     catalog: "Каталог",
     call: "24/7 Звонок",
   },
+  heroPills: {
+    highVoltage: "⚡ Высокое напряжение",
+    solar: "☀️ Солнечная энергия",
+    lighting: "💡 Освещение",
+    fireAlarm: "🚨 FDNY",
+    demolition: "🏗️ Демонтаж",
+  },
   sliderMeta: {
     nextIntake: "СЛЕДУЮЩИЙ РАЗДЕЛ",
     disciplineLabel: "ДИСЦИПЛИНА",

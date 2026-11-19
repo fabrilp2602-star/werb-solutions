@@ -32,6 +32,13 @@ export const zh: TranslationDictionary = {
     catalog: "目录",
     call: "24/7 呼叫",
   },
+  heroPills: {
+    highVoltage: "⚡ 高压配电",
+    solar: "☀️ 太阳能",
+    lighting: "💡 智能照明",
+    fireAlarm: "🚨 消防警报",
+    demolition: "🏗️ 施工拆除",
+  },
   sliderMeta: {
     nextIntake: "即将展示",
     disciplineLabel: "专业工程",
