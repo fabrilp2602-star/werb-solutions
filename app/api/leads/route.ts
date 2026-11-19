@@ -29,52 +29,8 @@ function getLeads(): LeadRecord[] {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
     if (!fs.existsSync(DATA_FILE)) {
-      // Seed with sample initial NYC Master Electrician leads
-      const initialLeads: LeadRecord[] = [
-        {
-          id: 'lead_nyc_1001',
-          createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-          borough: 'Manhattan',
-          propertyType: 'Co-op',
-          service: '200A / 400A Heavy-Up Panel',
-          urgency: 'Within 48h',
-          fullName: 'Eleanor Vance (Board VP)',
-          phone: '+1 (917) 555-0142',
-          propertyAddress: '740 Park Ave, Apt 11B, Manhattan, NY 10021',
-          dobJobNumber: 'M0094821',
-          notes: 'Alteration agreement signed. Need DOB NOW filing & ConEd 400A riser cutover.',
-          status: 'dispatched',
-        },
-        {
-          id: 'lead_nyc_1002',
-          createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
-          borough: 'Brooklyn',
-          propertyType: 'Historic Brownstone',
-          service: 'Brownstone Complete Rewire',
-          urgency: 'Scheduled Renovation',
-          fullName: 'Marcus Sterling',
-          phone: '+1 (718) 555-8921',
-          propertyAddress: '142 Willow St, Brooklyn Heights, NY 11201',
-          dobJobNumber: 'B0034190',
-          notes: 'Total knob-and-tube removal. LPC approval already granted.',
-          status: 'pending',
-        },
-        {
-          id: 'lead_nyc_1003',
-          createdAt: new Date(Date.now() - 3600000 * 12).toISOString(),
-          borough: 'Manhattan',
-          propertyType: 'Condo',
-          service: 'Architectural Lutron Lighting',
-          urgency: 'Scheduled Renovation',
-          fullName: 'Claire Dupont',
-          phone: '+1 (212) 555-7319',
-          propertyAddress: '56 Leonard St, Penthouse 48, Tribeca, NY 10013',
-          notes: 'Lutron HomeWorks QSX system design & 200A subpanel upgrade.',
-          status: 'contacted',
-        }
-      ];
-      fs.writeFileSync(DATA_FILE, JSON.stringify(initialLeads, null, 2), 'utf-8');
-      return initialLeads;
+      fs.writeFileSync(DATA_FILE, '[]', 'utf-8');
+      return [];
     }
     const data = fs.readFileSync(DATA_FILE, 'utf-8');
     return JSON.parse(data);
