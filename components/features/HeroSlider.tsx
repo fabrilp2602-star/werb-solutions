@@ -30,12 +30,12 @@ export interface HeroSliderProps {
   showStats?: boolean;
 }
 
-/** COMPONENTE PRINCIPAL HERO SLIDER (< 120 LÍNEAS - MODULAR Y CENTRADO EN MÓVIL) */
+/** COMPONENTE PRINCIPAL HERO SLIDER (ESTILO VERMILION FULL-BLEED 100svh) */
 export default function HeroSlider({
   onSelectService,
   isHomePage = false,
   phone = "+1 (929) 584-7647",
-  showStats = true,
+  showStats = false,
 }: HeroSliderProps) {
   const { t } = useSite();
   const rail = useRail(HERO_SLIDES.length);
@@ -43,8 +43,8 @@ export default function HeroSlider({
   return (
     <section className="relative z-10 select-none overflow-hidden bg-black text-white" aria-label="NYC Engineered Electrical Services">
       
-      {/* 1. HERO MAIN VIEWPORT (Ocupa la pantalla con imagen de fondo completa detrás del navbar) */}
-      <div className="relative isolate flex min-h-[680px] lg:min-h-[740px] items-center overflow-hidden bg-black pt-28 pb-14 sm:pt-32 lg:pt-36">
+      {/* 1. HERO MAIN VIEWPORT (Ocupa la pantalla completa min-h-screen / min-h-[100svh] fija, sin saltos) */}
+      <div className="relative isolate flex min-h-screen min-h-[100svh] items-center overflow-hidden bg-black pt-24 pb-20 sm:pt-28 sm:pb-24 lg:pt-36 lg:pb-16">
         
         {/* Background crossfade images (FULL BLEED COVER) */}
         <div className="absolute inset-0 -z-20">
@@ -105,7 +105,7 @@ export default function HeroSlider({
         </div>
       </div>
 
-      {/* 2. STATS STRIP (Directamente bajo el hero con contadores animados y traducciones dinámicas) */}
+      {/* 2. STATS STRIP (Completamente deshabilitado por defecto para que la barra inferior cubra el hero sin nada debajo) */}
       {showStats && <HeroStatsStrip />}
 
     </section>

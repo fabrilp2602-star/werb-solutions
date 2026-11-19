@@ -27,74 +27,76 @@ export default function HeroNarrative({
 
   return (
     <div className="lg:col-span-7 flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-      {/* Dynamic Content Display */}
-      {active === 0 ? (
-        <div key="welcome-slide" className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start">
-          {/* Top Badge */}
-          <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
-            <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
-            <span>{t.heroWelcome.badge}</span>
+      {/* Dynamic Content Display (Contenedor con altura mínima fija para evitar saltos o cambios de tamaño entre slides) */}
+      <div className="w-full min-h-[400px] sm:min-h-[360px] md:min-h-[380px] flex flex-col justify-start">
+        {active === 0 ? (
+          <div key="welcome-slide" className="space-y-3.5 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start">
+            {/* Top Badge */}
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
+              <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
+              <span>{t.heroWelcome.badge}</span>
+            </div>
+
+            {/* Canonical Master H1 for SEO */}
+            <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] min-h-[3rem] sm:min-h-[3.8rem] flex items-center">
+              {t.heroWelcome.h1}
+            </h1>
+
+            {/* Subtítulo / Identidad */}
+            <p className="text-sm sm:text-lg font-semibold text-[#e2c97d]">
+              Ingeniería Eléctrica y Contratación NYC
+            </p>
+
+            {/* Who We Are Description */}
+            <p className="text-xs sm:text-base text-slate-300 leading-relaxed max-w-xl font-normal line-clamp-3 sm:line-clamp-none">
+              {t.heroWelcome.description}
+            </p>
+
+            {/* Trust Signals Strip */}
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1 text-[11px] font-mono text-[#ece8a6]">
+              <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.heavyUp}</span>
+              <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.coi}</span>
+              <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.dob}</span>
+            </div>
           </div>
+        ) : (
+          <div key={`slide-${slide.id}`} className="space-y-3.5 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start">
+            {/* Discipline Tag */}
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
+              <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
+              <span>{activeTranslatedSlide.badge}</span>
+            </div>
 
-          {/* Canonical Master H1 for SEO */}
-          <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
-            {t.heroWelcome.h1}
-          </h1>
+            {/* Dynamic H1 tailored for each service scope */}
+            <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] min-h-[3rem] sm:min-h-[3.8rem] flex items-center">
+              {activeTranslatedSlide.h1}
+            </h1>
 
-          {/* Subtítulo / Identidad */}
-          <p className="text-base sm:text-lg font-semibold text-[#e2c97d]">
-            Ingeniería Eléctrica y Contratación NYC
-          </p>
+            {/* Subtitle / Focus */}
+            <p className="text-sm sm:text-lg font-semibold text-[#e2c97d] line-clamp-1">
+              {activeTranslatedSlide.subtitle}
+            </p>
 
-          {/* Who We Are Description */}
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl font-normal">
-            {t.heroWelcome.description}
-          </p>
+            {/* Detailed Service Narrative */}
+            <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-slate-200 line-clamp-3 sm:line-clamp-none">
+              {activeTranslatedSlide.description}
+            </p>
 
-          {/* Trust Signals Strip */}
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1 text-[11px] font-mono text-[#ece8a6]">
-            <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.heavyUp}</span>
-            <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.coi}</span>
-            <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.dob}</span>
+            {/* Feature pills with checkmarks */}
+            <ul className="flex flex-wrap justify-center md:justify-start gap-2 pt-1">
+              {activeTranslatedSlide.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="animate-in fade-in slide-in-from-bottom-1 duration-500 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md"
+                >
+                  <CheckCircle2 size={12} className="text-[#e2c97d]" />
+                  <span>{tag}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      ) : (
-        <div key={`slide-${slide.id}`} className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start">
-          {/* Discipline Tag */}
-          <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
-            <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
-            <span>{activeTranslatedSlide.badge}</span>
-          </div>
-
-          {/* Dynamic H1 tailored for each service scope */}
-          <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
-            {activeTranslatedSlide.h1}
-          </h1>
-
-          {/* Subtitle / Focus */}
-          <p className="text-base sm:text-lg font-semibold text-[#e2c97d]">
-            {activeTranslatedSlide.subtitle}
-          </p>
-
-          {/* Detailed Service Narrative */}
-          <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-slate-200">
-            {activeTranslatedSlide.description}
-          </p>
-
-          {/* Feature pills with checkmarks */}
-          <ul className="flex flex-wrap justify-center md:justify-start gap-2 pt-1">
-            {activeTranslatedSlide.tags.map((tag) => (
-              <li
-                key={tag}
-                className="animate-in fade-in slide-in-from-bottom-1 duration-500 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md"
-              >
-                <CheckCircle2 size={12} className="text-[#e2c97d]" />
-                <span>{tag}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Mobile Category Switcher Pills: 3 arriba (cortos) y 2 abajo (largos), traducidos dinámicamente */}
       <HeroMobilePills active={active} onSelect={onSelect} />
