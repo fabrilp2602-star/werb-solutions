@@ -105,8 +105,8 @@ export default function HeroSlider({
         </div>
       </div>
 
-      {/* 2. STATS STRIP (Completamente deshabilitado por defecto para que la barra inferior cubra el hero sin nada debajo) */}
-      {showStats && <HeroStatsStrip />}
+      {/* 2. STATS STRIP (Directamente bajo el hero con contadores animados y traducciones dinámicas) */}
+      <HeroStatsStrip />
 
     </section>
   );
