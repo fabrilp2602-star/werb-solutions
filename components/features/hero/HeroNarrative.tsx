@@ -93,37 +93,40 @@ export default function HeroNarrative({
         )}
       </div>
 
-      {/* Mobile Category Switcher Pills: 3 arriba (cortos) y 2 abajo (largos), traducidos dinámicamente */}
-      <HeroMobilePills active={active} onSelect={onSelect} />
+      {/* Bottom Interactive Dock: Pastillas y Botones de Acción posicionados abajo de forma fija */}
+      <div className="w-full flex flex-col items-center md:items-start pt-6 sm:pt-8 space-y-3">
+        {/* Mobile Category Switcher Pills: 3 arriba (cortos) y 2 abajo (largos) */}
+        <HeroMobilePills active={active} onSelect={onSelect} />
 
-      {/* Dual CTAs (Botones estilizados, compactos y simétricos que no ocupan toda la pantalla en móvil) */}
-      <div className="pt-2 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2.5 w-full">
-        <a
-          href={isHomePage ? "#nyc-lead-wizard" : slide.ctaPrimary.href}
-          onClick={() => onSelectService && onSelectService(slide.title)}
-          className="gold-gradient-btn inline-flex h-10 w-60 sm:w-44 items-center justify-center gap-2 rounded-xl text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-[0_0_20px_rgba(210,142,27,0.35)] transition hover:brightness-110 active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
-        >
-          <span>{t.heroActions?.schedule || "Agendar"}</span>
-          <ArrowRight size={14} className="shrink-0" />
-        </a>
-
-        <a
-          href={isHomePage ? `/services#${slide.serviceId}` : slide.ctaSecondary.href}
-          className="inline-flex h-10 w-60 sm:w-44 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md hover:bg-white/20 active:scale-95 transition-all cursor-pointer whitespace-nowrap shrink-0"
-        >
-          <Layers size={14} className="shrink-0" />
-          <span>{t.heroActions?.catalog || "Catálogo"}</span>
-        </a>
-
-        {isHomePage && (
+        {/* Dual CTAs (Botones estilizados, compactos, simétricos y más abajo) */}
+        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2.5 w-full">
           <a
-            href={`tel:${phone.replace(/\D/g, "")}`}
-            className="hidden xl:inline-flex h-10 w-48 items-center justify-center gap-2 rounded-xl border border-white/15 bg-black/40 px-4 text-xs font-semibold text-slate-200 hover:text-white hover:border-[#e2c97d]/40 transition-colors cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
+            href={isHomePage ? "#nyc-lead-wizard" : slide.ctaPrimary.href}
+            onClick={() => onSelectService && onSelectService(slide.title)}
+            className="gold-gradient-btn inline-flex h-10 w-60 sm:w-44 items-center justify-center gap-2 rounded-xl text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-[0_0_20px_rgba(210,142,27,0.35)] transition hover:brightness-110 active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
           >
-            <PhoneCall size={14} className="text-[#e2c97d] shrink-0" />
-            <span>{t.heroActions?.call || "24/7 Llamada"}</span>
+            <span>{t.heroActions?.schedule || "Agendar"}</span>
+            <ArrowRight size={14} className="shrink-0" />
           </a>
-        )}
+
+          <a
+            href={isHomePage ? `/services#${slide.serviceId}` : slide.ctaSecondary.href}
+            className="inline-flex h-10 w-60 sm:w-44 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md hover:bg-white/20 active:scale-95 transition-all cursor-pointer whitespace-nowrap shrink-0"
+          >
+            <Layers size={14} className="shrink-0" />
+            <span>{t.heroActions?.catalog || "Catálogo"}</span>
+          </a>
+
+          {isHomePage && (
+            <a
+              href={`tel:${phone.replace(/\D/g, "")}`}
+              className="hidden xl:inline-flex h-10 w-48 items-center justify-center gap-2 rounded-xl border border-white/15 bg-black/40 px-4 text-xs font-semibold text-slate-200 hover:text-white hover:border-[#e2c97d]/40 transition-colors cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
+            >
+              <PhoneCall size={14} className="text-[#e2c97d] shrink-0" />
+              <span>{t.heroActions?.call || "24/7 Llamada"}</span>
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
