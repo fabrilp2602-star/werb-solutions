@@ -1,0 +1,20 @@
+[
+  {
+    "id": "usr_1",
+    "name": "Pablo García",
+    "email": "admin@werbsolutions.com",
+    "role": "Master Admin",
+    "status": "active",
+    "lastLogin": "Ahora mismo",
+    "createdAt": "2026-01-15T10:00:00.000Z"
+  },
+  {
+    "id": "usr_2",
+    "name": "John Doe",
+    "email": "expediter@werbsolutions.com",
+    "role": "DOB Expediter",
+    "status": "active",
+    "lastLogin": "Ayer, 16:40",
+    "createdAt": "2026-02-01T14:30:00.000Z"
+  }
+]

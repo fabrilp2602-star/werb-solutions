@@ -16,7 +16,7 @@ export default function TermsPage() {
       <Header />
       <MobileActionBar />
 
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 space-y-10">
+      <div className="mx-auto max-w-4xl px-4 pt-28 sm:pt-32 pb-16 sm:px-6 lg:px-8 space-y-10">
         <div className="border-b border-slate-200 dark:border-white/10 pb-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#e6b93e]/30 bg-[#e6b93e]/10 px-3.5 py-1 text-xs font-mono font-bold uppercase text-[#b88c22] dark:text-[#e6b93e] mb-3">
             <Scale className="h-3.5 w-3.5" />

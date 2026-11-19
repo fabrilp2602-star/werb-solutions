@@ -243,7 +243,7 @@ export const es: TranslationDictionary = {
   },
   leadWizard: {
     badge: "Formulario de Admisión y Generador de COI",
-    title: "AGENDAR INSPECCIÓN Y COTIZACIÓN EN NYC",
+    title: "AGENDAR INSPECCIÓN TÉCNICA\nY COTIZACIÓN EN NYC",
     subtitle: "En conformidad estricta con las pautas del Departamento de Edificios de NYC y acuerdos de reforma para edificios de lujo.",
     preSelectedBadge: "Servicio Eléctrico Preseleccionado",
     selectedBadge: "Seleccionado",

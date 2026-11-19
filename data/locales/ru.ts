@@ -124,7 +124,7 @@ export const ru: TranslationDictionary = {
   ],
   servicesSection: {
     badge: "Каталог специализированных услуг",
-    title: "ПРОФЕССИОНАЛЬНЫЕ ЭЛЕКТРОМОНТАЖНЫЕ РАБОТЫ",
+    title: "ЭЛЕКТРОМОНТАЖНЫЕ РАБОТЫ В НЬЮ-ЙОРКЕ",
     subtitle: "Полное согласование в соответствии с Электротехническим кодексом Нью-Йорка (Title 27 Chapter 3).",
     requestSchedule: "Заказать выезд",
     items: [
@@ -243,7 +243,7 @@ export const ru: TranslationDictionary = {
   },
   leadWizard: {
     badge: "Прием заявок и генератор полисов COI",
-    title: "ЗАКАЗАТЬ ВЫЕЗД МАСТЕРА И СМЕТУ В NYC",
+    title: "ЗАКАЗАТЬ ВЫЕЗД МАСТЕРА\nИ РАСЧЕТ СМЕТЫ В NYC",
     subtitle: "Полное соблюдение регламентов Департамента зданий NYC и договоров на проведение ремонта в элитных домах.",
     preSelectedBadge: "Предварительно выбранная услуга",
     selectedBadge: "Выбрано",

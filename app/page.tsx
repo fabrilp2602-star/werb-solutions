@@ -78,7 +78,7 @@ export default function Home() {
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e] mb-2 block">
               {t.servicesSection.badge}
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold uppercase tracking-tight text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-4xl font-serif font-bold uppercase tracking-tight text-slate-900 dark:text-white break-words [hyphens:auto] [overflow-wrap:anywhere] max-w-2xl mx-auto">
               {t.servicesSection.title}
             </h2>
             <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
@@ -86,56 +86,72 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {t.servicesSection.items.map((srv) => (
-              <div 
-                key={srv.id} 
-                className="apple-glass-card group relative flex flex-col justify-between overflow-hidden rounded-2xl p-4 transition-all duration-300"
-              >
-                <div>
-                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10">
-                    <Image
-                      src={SERVICE_IMAGES[srv.id] || "/media/service_panel_verification_desktop.webp"}
-                      alt={srv.title}
-                      fill
-                      sizes="300px"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <span className="absolute top-2.5 left-2.5 rounded-lg bg-black/80 px-2.5 py-1 text-[10px] font-mono font-bold uppercase text-[#e6b93e] backdrop-blur-md border border-[#e6b93e]/30">
-                      {srv.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-4 text-base font-bold text-slate-900 dark:text-white">
-                    {srv.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {srv.desc}
-                  </p>
-                </div>
-
-                <div className="mt-5 border-t border-slate-100 dark:border-slate-800/80 pt-4">
-                  <ul className="space-y-1.5 text-[11px] text-slate-700 dark:text-slate-300">
-                    {srv.features.map((feat, fidx) => (
-                      <li key={fidx} className="flex items-center gap-1.5">
-                        <Check className="h-3 w-3 text-emerald-500" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <button 
-                    type="button"
-                    onClick={() => handleSelectService(srv.targetService)}
-                    className="mt-4 flex w-full items-center justify-between text-xs font-bold text-[#b79f53] dark:text-[#ece8a6] hover:underline cursor-pointer group-hover:translate-x-0.5 transition-transform"
+          {/* Services Grid */}
+          {(() => {
+            const activeServices =
+              texts.customServices && texts.customServices.length > 0
+                ? texts.customServices
+                : t.servicesSection.items;
+            return (
+              <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {activeServices.map((srv) => (
+                  <div
+                    key={srv.id}
+                    className="apple-glass-card group relative flex flex-col justify-between overflow-hidden rounded-2xl p-4 transition-all duration-300"
                   >
-                    <span>{t.servicesSection.requestSchedule}</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
-                </div>
+                    <div>
+                      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-white/10">
+                        <Image
+                          src={
+                            SERVICE_IMAGES[srv.id] ||
+                            "/media/service_panel_verification_desktop.webp"
+                          }
+                          alt={srv.title}
+                          fill
+                          sizes="300px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <span className="absolute top-2.5 left-2.5 rounded-lg bg-black/80 px-2.5 py-1 text-[10px] font-mono font-bold uppercase text-[#e6b93e] backdrop-blur-md border border-[#e6b93e]/30">
+                          {srv.badge}
+                        </span>
+                      </div>
+
+                      <h3 className="mt-4 text-base font-bold text-slate-900 dark:text-white">
+                        {srv.title}
+                      </h3>
+                      <p className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                        {srv.desc}
+                      </p>
+                    </div>
+
+                    <div className="mt-5 border-t border-slate-100 dark:border-slate-800/80 pt-4">
+                      {srv.features && (
+                        <ul className="space-y-1.5 text-[11px] text-slate-700 dark:text-slate-300">
+                          {srv.features.map((feat, fidx) => (
+                            <li key={fidx} className="flex items-center gap-1.5">
+                              <Check className="h-3 w-3 text-emerald-500" />
+                              <span>{feat}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleSelectService(srv.targetService || srv.title)
+                        }
+                        className="mt-4 flex w-full items-center justify-between text-xs font-bold text-[#b79f53] dark:text-[#ece8a6] hover:underline cursor-pointer group-hover:translate-x-0.5 transition-transform"
+                      >
+                        <span>{t.servicesSection.requestSchedule}</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            );
+          })()}
         </div>
       </section>
 
@@ -349,7 +365,7 @@ export default function Home() {
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#b88c22] dark:text-[#e6b93e]">
               {t.leadWizard.badge}
             </span>
-            <h2 className="mt-1 text-3xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white">
+            <h2 className="mt-1 text-2xl sm:text-4xl font-serif font-bold uppercase text-slate-900 dark:text-white whitespace-pre-line max-w-2xl mx-auto break-words">
               {t.leadWizard.title}
             </h2>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">

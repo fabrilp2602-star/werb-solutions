@@ -20,7 +20,8 @@ export default function HeroNarrative({
   isHomePage = false,
   phone = "+1 (929) 584-7647",
 }: HeroNarrativeProps) {
-  const { t } = useSite();
+  const { t, locale } = useSite();
+  const isRu = locale === "ru";
   const slide = HERO_SLIDES[active];
   const activeTranslatedSlide = t.slides[active] || slide;
 
@@ -37,12 +38,20 @@ export default function HeroNarrative({
             </div>
 
             {/* Canonical Master H1 for SEO */}
-            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.12] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            <h1
+              className={`font-sans font-black tracking-tight text-white leading-[1.12] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] break-words [hyphens:auto] [overflow-wrap:anywhere] ${
+                isRu ? "text-2xl sm:text-3xl lg:text-4xl" : "text-3xl sm:text-4xl lg:text-5xl"
+              }`}
+            >
               {t.heroWelcome.h1}
             </h1>
 
             {/* Who We Are Description */}
-            <p className="text-sm sm:text-base text-slate-100 leading-relaxed max-w-lg font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-3 sm:line-clamp-none">
+            <p
+              className={`text-slate-100 leading-relaxed max-w-lg font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-3 sm:line-clamp-none break-words ${
+                isRu ? "text-xs sm:text-sm" : "text-sm sm:text-base"
+              }`}
+            >
               {t.heroWelcome.description}
             </p>
 
@@ -62,17 +71,29 @@ export default function HeroNarrative({
             </div>
 
             {/* Dynamic H1 tailored for each service scope */}
-            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.12] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+            <h1
+              className={`font-sans font-black tracking-tight text-white leading-[1.12] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)] break-words [hyphens:auto] [overflow-wrap:anywhere] ${
+                isRu ? "text-2xl sm:text-3xl lg:text-4xl" : "text-3xl sm:text-4xl lg:text-5xl"
+              }`}
+            >
               {activeTranslatedSlide.h1}
             </h1>
 
             {/* Subtitle / Focus */}
-            <p className="text-sm sm:text-lg font-bold text-[#e2c97d] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            <p
+              className={`font-bold text-[#e2c97d] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] break-words ${
+                isRu ? "text-xs sm:text-base" : "text-sm sm:text-lg"
+              }`}
+            >
               {activeTranslatedSlide.subtitle}
             </p>
 
             {/* Detailed Service Narrative */}
-            <p className="max-w-lg text-sm sm:text-base leading-relaxed text-slate-100 font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-3 sm:line-clamp-none">
+            <p
+              className={`max-w-lg leading-relaxed text-slate-100 font-medium drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-3 sm:line-clamp-none break-words ${
+                isRu ? "text-xs sm:text-sm" : "text-sm sm:text-base"
+              }`}
+            >
               {activeTranslatedSlide.description}
             </p>
 

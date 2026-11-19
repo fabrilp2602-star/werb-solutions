@@ -4,6 +4,15 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 import { Locale, TRANSLATIONS, TranslationDictionary } from "@/data/i18n";
 
+export interface CustomServiceItem {
+  id: string;
+  title: string;
+  targetService: string;
+  badge: string;
+  desc: string;
+  features: string[];
+}
+
 export interface SiteContentTexts {
   heroTagline: string;
   heroHeadline: string;
@@ -19,7 +28,43 @@ export interface SiteContentTexts {
   coiAmount: string;
   aboutTitle: string;
   aboutText: string;
+  customServices?: CustomServiceItem[];
 }
+
+const DEFAULT_SERVICES: CustomServiceItem[] = [
+  {
+    id: "panel-upgrade",
+    title: "200A Smart Electrical Panel Upgrade",
+    targetService: "200A Smart Electrical Panel Upgrade",
+    badge: "DOB NOW™ Certified",
+    desc: "Full service entrance replacement, ConEd meter pan coordination, transit box installations and zero-interruption cutovers for pre-war buildings.",
+    features: ["Cutover in Under 8 Hours", "Guaranteed DOB Inspection Sign-Off", "Smart Load-Shedding Integration"],
+  },
+  {
+    id: "ev-charging",
+    title: "Tesla & Universal Level-2 Chargers",
+    targetService: "Level-2 EV Charger Dedicated Line",
+    badge: "NYC Code Compliant",
+    desc: "Complete Level-2 charger installations for private garages, co-ops, and multi-family buildings with dedicated 240V lines and permit handling.",
+    features: ["Load Calculation Verification", "Concealed Conduit Routing", "Official NYC DOB Certificate"],
+  },
+  {
+    id: "architectural-lighting",
+    title: "Lutron Architectural Smart Lighting",
+    targetService: "Lutron Architectural Smart Lighting",
+    badge: "Luxury Penthouses",
+    desc: "Precision magnetic track lighting, cove indirect channels, and Lutron HomeWorks keypads for luxury Manhattan residences.",
+    features: ["Warm 3000K Flicker-Free Dimming", "Flush Plaster-in Mounting", "Mobile & Voice Automation"],
+  },
+  {
+    id: "solar-battery",
+    title: "Urban Rooftop Solar & Battery Storage",
+    targetService: "Solar Rooftop & Battery Backup System",
+    badge: "Local Law 97 Ready",
+    desc: "Commercial and residential flat rooftop photovoltaic arrays with Enphase and Tesla Powerwall backup across Brooklyn & Queens.",
+    features: ["NYC Solar Property Tax Abatement", "ConEd Interconnection Filing", "Carbon Penalty Mitigation"],
+  },
+];
 
 const DEFAULT_TEXTS: SiteContentTexts = {
   heroTagline: "Class-A NYC DOB Master Electrician • 5 Boroughs",
@@ -36,6 +81,7 @@ const DEFAULT_TEXTS: SiteContentTexts = {
   coiAmount: "$2,000,000",
   aboutTitle: "Wired for Excellence Across New York City",
   aboutText: "With over 15 years serving Manhattan, Brooklyn and Queens, WERB Solutions delivers licensed master electrical expertise that passes rigorous building management boards and city inspections.",
+  customServices: DEFAULT_SERVICES,
 };
 
 interface SiteContextType {

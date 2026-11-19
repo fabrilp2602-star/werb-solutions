@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <Header />
       <MobileActionBar />
 
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 space-y-10">
+      <div className="mx-auto max-w-4xl px-4 pt-28 sm:pt-32 pb-16 sm:px-6 lg:px-8 space-y-10">
         <div className="border-b border-slate-200 dark:border-white/10 pb-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-mono font-bold uppercase text-emerald-600 dark:text-emerald-400 mb-3">
             <ShieldCheck className="h-3.5 w-3.5" />
