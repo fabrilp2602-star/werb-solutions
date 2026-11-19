@@ -30,10 +30,10 @@ export default function HeroNarrative({
       {/* Dynamic Content Display (Contenedor con altura mínima fija para evitar saltos o cambios de tamaño entre slides) */}
       <div className="w-full min-h-[400px] sm:min-h-[360px] md:min-h-[380px] flex flex-col justify-start">
         {active === 0 ? (
-          <div key="welcome-slide" className="space-y-3.5 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start max-w-xl">
+          <div key="welcome-slide" className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start max-w-xl">
             {/* Top Badge */}
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
-              <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/40 bg-black/70 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
+              <Sparkles size={14} className="shrink-0 text-[#e2c97d]" />
               <span>{t.heroWelcome.badge}</span>
             </div>
 
@@ -43,22 +43,22 @@ export default function HeroNarrative({
             </h1>
 
             {/* Who We Are Description */}
-            <p className="text-xs sm:text-base text-slate-300 leading-relaxed max-w-xl font-normal line-clamp-3 sm:line-clamp-none">
+            <p className="text-sm sm:text-base text-slate-200 leading-relaxed max-w-xl font-normal">
               {t.heroWelcome.description}
             </p>
 
             {/* Trust Signals Strip */}
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1 text-[11px] font-mono text-[#ece8a6] max-w-xl">
-              <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.heavyUp}</span>
-              <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.coi}</span>
-              <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.dob}</span>
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1 text-xs font-mono text-[#ece8a6] max-w-xl">
+              <span className="rounded-md bg-white/10 px-3 py-1.5 border border-white/10">{t.heroWelcome.trustSignals.heavyUp}</span>
+              <span className="rounded-md bg-white/10 px-3 py-1.5 border border-white/10">{t.heroWelcome.trustSignals.coi}</span>
+              <span className="rounded-md bg-white/10 px-3 py-1.5 border border-white/10">{t.heroWelcome.trustSignals.dob}</span>
             </div>
           </div>
         ) : (
-          <div key={`slide-${slide.id}`} className="space-y-3.5 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start">
+          <div key={`slide-${slide.id}`} className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start">
             {/* Discipline Tag */}
-            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
-              <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
+            <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/40 bg-black/70 px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
+              <Sparkles size={14} className="shrink-0 text-[#e2c97d]" />
               <span>{activeTranslatedSlide.badge}</span>
             </div>
 
@@ -73,7 +73,7 @@ export default function HeroNarrative({
             </p>
 
             {/* Detailed Service Narrative */}
-            <p className="max-w-xl text-xs sm:text-sm leading-relaxed text-slate-200 line-clamp-3 sm:line-clamp-none">
+            <p className="max-w-xl text-sm sm:text-base leading-relaxed text-slate-100">
               {activeTranslatedSlide.description}
             </p>
 
@@ -82,9 +82,9 @@ export default function HeroNarrative({
               {activeTranslatedSlide.tags.map((tag) => (
                 <li
                   key={tag}
-                  className="animate-in fade-in slide-in-from-bottom-1 duration-500 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/50 px-2.5 py-1 text-[11px] font-semibold text-white backdrop-blur-md"
+                  className="animate-in fade-in slide-in-from-bottom-1 duration-500 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/60 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md"
                 >
-                  <CheckCircle2 size={12} className="text-[#e2c97d]" />
+                  <CheckCircle2 size={13} className="text-[#e2c97d]" />
                   <span>{tag}</span>
                 </li>
               ))}

@@ -46,20 +46,42 @@ export default function HeroSlider({
       {/* 1. HERO MAIN VIEWPORT (Ocupa la pantalla completa min-h-screen / min-h-[100svh] fija, sin saltos) */}
       <div className="relative isolate flex min-h-screen min-h-[100svh] items-center overflow-hidden bg-black pt-24 pb-20 sm:pt-28 sm:pb-24 lg:pt-36 lg:pb-16">
         
-        {/* Background crossfade images (FULL BLEED COVER) */}
+        {/* Background crossfade images (FULL BLEED COVER with responsive mobile 9:16 and desktop 16:9) */}
         <div className="absolute inset-0 -z-20">
           {HERO_SLIDES.map((s, i) => (
-            <Image
-              key={s.id}
-              src={s.imageUrl}
-              alt={s.title}
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className={`object-cover transition-opacity duration-1000 ease-out ${
-                i === rail.active ? "opacity-100 scale-100" : "opacity-0 scale-105 pointer-events-none"
-              }`}
-            />
+            <React.Fragment key={s.id}>
+              {/* Mobile Image (9:16) */}
+              <div
+                className={`sm:hidden absolute inset-0 transition-opacity duration-1000 ease-out ${
+                  i === rail.active ? "opacity-100 scale-100" : "opacity-0 scale-105 pointer-events-none"
+                }`}
+              >
+                <Image
+                  src={s.mobileImageUrl || s.imageUrl}
+                  alt={s.title}
+                  fill
+                  priority={i === 0}
+                  sizes="100vw"
+                  className="object-cover object-center"
+                />
+              </div>
+
+              {/* Desktop Image (16:9) */}
+              <div
+                className={`hidden sm:block absolute inset-0 transition-opacity duration-1000 ease-out ${
+                  i === rail.active ? "opacity-100 scale-100" : "opacity-0 scale-105 pointer-events-none"
+                }`}
+              >
+                <Image
+                  src={s.imageUrl}
+                  alt={s.title}
+                  fill
+                  priority={i === 0}
+                  sizes="100vw"
+                  className="object-cover object-center"
+                />
+              </div>
+            </React.Fragment>
           ))}
         </div>
 
