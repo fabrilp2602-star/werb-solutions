@@ -85,11 +85,12 @@ export default function HeroSlider({
           ))}
         </div>
 
-        {/* Liquid dark vignette gradients for optimal text contrast and high-end cinematic feel */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/95 via-black/80 to-black/30 lg:from-black/95 lg:via-black/70 lg:to-black/20" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/85 via-transparent to-black/90" />
+        {/* Liquid dark vignette gradients: Left gradient ONLY on md+ desktop, NEVER on mobile */}
+        <div className="absolute inset-0 -z-10 hidden md:block bg-gradient-to-r from-black/95 via-black/80 to-black/30 lg:from-black/95 lg:via-black/70 lg:to-black/20" />
+        {/* Soft top/bottom cinematic gradient for header and bottom bar readability */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-black/30 to-black/80 md:from-black/85 md:via-transparent md:to-black/90" />
 
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
           
           {/* Columna Narrativa (Centrada en móvil, a la izquierda en escritorio) */}
           <HeroNarrative
