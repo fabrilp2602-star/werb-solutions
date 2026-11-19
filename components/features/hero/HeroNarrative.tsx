@@ -26,11 +26,11 @@ export default function HeroNarrative({
   const activeTranslatedSlide = t.slides[active] || slide;
 
   return (
-    <div className="lg:col-span-7 flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+    <div className="lg:col-span-7 flex flex-col items-center md:items-start text-center md:text-left space-y-4 max-w-xl">
       {/* Dynamic Content Display (Contenedor con altura mínima fija para evitar saltos o cambios de tamaño entre slides) */}
       <div className="w-full min-h-[400px] sm:min-h-[360px] md:min-h-[380px] flex flex-col justify-start">
         {active === 0 ? (
-          <div key="welcome-slide" className="space-y-3.5 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start">
+          <div key="welcome-slide" className="space-y-3.5 animate-in fade-in slide-in-from-bottom-2 duration-700 flex flex-col items-center md:items-start max-w-xl">
             {/* Top Badge */}
             <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#e2c97d]/35 bg-black/60 px-3.5 py-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#ece8a6] backdrop-blur-md shadow-sm">
               <Sparkles size={13} className="shrink-0 text-[#e2c97d]" />
@@ -38,14 +38,9 @@ export default function HeroNarrative({
             </div>
 
             {/* Canonical Master H1 for SEO */}
-            <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] min-h-[3rem] sm:min-h-[3.8rem] flex items-center">
+            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
               {t.heroWelcome.h1}
             </h1>
-
-            {/* Subtítulo / Identidad */}
-            <p className="text-sm sm:text-lg font-semibold text-[#e2c97d]">
-              Ingeniería Eléctrica y Contratación NYC
-            </p>
 
             {/* Who We Are Description */}
             <p className="text-xs sm:text-base text-slate-300 leading-relaxed max-w-xl font-normal line-clamp-3 sm:line-clamp-none">
@@ -53,7 +48,7 @@ export default function HeroNarrative({
             </p>
 
             {/* Trust Signals Strip */}
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1 text-[11px] font-mono text-[#ece8a6]">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 pt-1 text-[11px] font-mono text-[#ece8a6] max-w-xl">
               <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.heavyUp}</span>
               <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.coi}</span>
               <span className="rounded-md bg-white/10 px-2.5 py-1 border border-white/10">{t.heroWelcome.trustSignals.dob}</span>
@@ -68,12 +63,12 @@ export default function HeroNarrative({
             </div>
 
             {/* Dynamic H1 tailored for each service scope */}
-            <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] min-h-[3rem] sm:min-h-[3.8rem] flex items-center">
+            <h1 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.12]">
               {activeTranslatedSlide.h1}
             </h1>
 
             {/* Subtitle / Focus */}
-            <p className="text-sm sm:text-lg font-semibold text-[#e2c97d] line-clamp-1">
+            <p className="text-base sm:text-lg font-semibold text-[#e2c97d]">
               {activeTranslatedSlide.subtitle}
             </p>
 
@@ -101,32 +96,32 @@ export default function HeroNarrative({
       {/* Mobile Category Switcher Pills: 3 arriba (cortos) y 2 abajo (largos), traducidos dinámicamente */}
       <HeroMobilePills active={active} onSelect={onSelect} />
 
-      {/* Dual CTAs (Centrados en móvil, a la izquierda en escritorio) */}
-      <div className="pt-3 flex flex-wrap items-center justify-center md:justify-start gap-3 w-full">
+      {/* Dual CTAs (Botones estilizados, compactos y simétricos que no ocupan toda la pantalla en móvil) */}
+      <div className="pt-2 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-2.5 w-full">
         <a
           href={isHomePage ? "#nyc-lead-wizard" : slide.ctaPrimary.href}
           onClick={() => onSelectService && onSelectService(slide.title)}
-          className="gold-gradient-btn inline-flex h-12 min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 rounded-full px-7 text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-[0_0_25px_rgba(210,142,27,0.3)] transition hover:brightness-110 active:scale-95 cursor-pointer"
+          className="gold-gradient-btn inline-flex h-10 w-60 sm:w-44 items-center justify-center gap-2 rounded-xl text-xs font-bold uppercase tracking-wider text-[#1a1608] shadow-[0_0_20px_rgba(210,142,27,0.35)] transition hover:brightness-110 active:scale-95 cursor-pointer whitespace-nowrap shrink-0"
         >
-          <span>{active === 0 ? t.heroWelcome.ctaPrimary : activeTranslatedSlide.ctaPrimary}</span>
-          <ArrowRight size={15} className="shrink-0" />
+          <span>{t.heroActions?.schedule || "Agendar"}</span>
+          <ArrowRight size={14} className="shrink-0" />
         </a>
 
         <a
           href={isHomePage ? `/services#${slide.serviceId}` : slide.ctaSecondary.href}
-          className="inline-flex h-12 min-h-[48px] w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md hover:bg-white/20 active:scale-95 transition-all cursor-pointer"
+          className="inline-flex h-10 w-60 sm:w-44 items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md hover:bg-white/20 active:scale-95 transition-all cursor-pointer whitespace-nowrap shrink-0"
         >
-          <Layers size={15} className="shrink-0" />
-          <span>{active === 0 ? t.heroWelcome.ctaSecondary : activeTranslatedSlide.ctaSecondary}</span>
+          <Layers size={14} className="shrink-0" />
+          <span>{t.heroActions?.catalog || "Catálogo"}</span>
         </a>
 
         {isHomePage && (
           <a
             href={`tel:${phone.replace(/\D/g, "")}`}
-            className="hidden xl:inline-flex h-12 min-h-[48px] items-center justify-center gap-2 rounded-full border border-white/15 bg-black/40 px-5 text-xs font-semibold text-slate-200 hover:text-white hover:border-[#e2c97d]/40 transition-colors cursor-pointer active:scale-95"
+            className="hidden xl:inline-flex h-10 w-48 items-center justify-center gap-2 rounded-xl border border-white/15 bg-black/40 px-4 text-xs font-semibold text-slate-200 hover:text-white hover:border-[#e2c97d]/40 transition-colors cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
           >
             <PhoneCall size={14} className="text-[#e2c97d] shrink-0" />
-            <span>24/7: {phone}</span>
+            <span>{t.heroActions?.call || "24/7 Llamada"}</span>
           </a>
         )}
       </div>
