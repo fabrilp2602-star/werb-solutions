@@ -44,7 +44,7 @@ export default function HeroSlider({
     <section className="relative z-10 select-none overflow-hidden bg-black text-white" aria-label="NYC Engineered Electrical Services">
       
       {/* 1. HERO MAIN VIEWPORT (Ocupa la pantalla completa min-h-screen / min-h-[100svh] fija, sin saltos) */}
-      <div className="relative isolate flex min-h-screen min-h-[100svh] items-center overflow-hidden bg-black pt-24 pb-20 sm:pt-28 sm:pb-24 lg:pt-36 lg:pb-16">
+      <div className="relative isolate flex min-h-screen min-h-[100svh] items-center overflow-hidden bg-black pt-16 pb-14 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-16">
         
         {/* Background crossfade images (FULL BLEED COVER with responsive mobile 9:16 and desktop 16:9) */}
         <div className="absolute inset-0 -z-20">
