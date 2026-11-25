@@ -9,24 +9,7 @@ export const dynamic = 'force-dynamic';
 const DATA_DIR = path.join(process.cwd(), 'data');
 const DATA_FILE = path.join(DATA_DIR, 'users.json');
 
-const INITIAL_USERS: AdminUser[] = [
-  {
-    id: 'usr_1',
-    name: 'Pablo García',
-    email: 'admin@werbsolutions.com',
-    role: 'Master Admin',
-    status: 'active',
-    lastLogin: 'Ahora mismo',
-  },
-  {
-    id: 'usr_2',
-    name: 'John Doe',
-    email: 'expediter@werbsolutions.com',
-    role: 'DOB Expediter',
-    status: 'active',
-    lastLogin: 'Ayer, 16:40',
-  },
-];
+const INITIAL_USERS: AdminUser[] = [];
 
 function getUsers(): AdminUser[] {
   try {
@@ -58,17 +41,30 @@ function saveUsers(users: AdminUser[]) {
 
 // GET /api/users
 export async function GET() {
-  if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
-  const users = getUsers();
+  const profile = await requireAdmin();
+  if (!profile) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+  const configuredAdmin: AdminUser = {
+    id: 'configured-admin',
+    name: profile.name,
+    email: profile.email,
+    identification: profile.identification,
+    role: profile.role,
+    status: 'active',
+    lastLogin: 'Ahora',
+    forcePasswordChange: profile.forcePasswordChange,
+    emailVerified: true,
+  };
+  const users = [configuredAdmin, ...getUsers().filter((user) => user.id !== configuredAdmin.id)];
   return NextResponse.json({ success: true, count: users.length, users });
 }
 
 // POST /api/users - Create new administrative user
 export async function POST(req: Request) {
   try {
-    if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    const profile = await requireAdmin();
+    if (!profile) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     const body = await req.json();
-    const { name, email, role, status = 'active' } = body;
+    const { name, email, identification = '', role = 'tec', status = 'active' } = body;
 
     if (!name || !email) {
       return NextResponse.json(
@@ -78,6 +74,12 @@ export async function POST(req: Request) {
     }
 
     const users = getUsers();
+    if (profile.email && profile.email === email.trim().toLowerCase()) {
+      return NextResponse.json(
+        { success: false, error: 'User with this email already exists' },
+        { status: 409 }
+      );
+    }
     const existing = users.find((u) => u.email.toLowerCase() === email.toLowerCase());
     if (existing) {
       return NextResponse.json(
@@ -90,9 +92,12 @@ export async function POST(req: Request) {
       id: `usr_${Date.now()}`,
       name: name.trim(),
       email: email.trim().toLowerCase(),
-      role: role || 'Field Master Electrician',
+      identification: String(identification).trim(),
+      role: role === 'super' ? 'super' : 'tec',
       status: status === 'suspended' ? 'suspended' : 'active',
       lastLogin: 'Nunca',
+      forcePasswordChange: true,
+      emailVerified: false,
     };
 
     users.unshift(newUser);

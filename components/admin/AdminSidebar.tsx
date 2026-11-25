@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { LogOut, LucideIcon } from "lucide-react";
+import { useSite } from "@/context/SiteContext";
 
 export interface NavItemConfig {
   id: string;
@@ -26,6 +27,10 @@ export function AdminSidebar({
   navItems,
   logout,
 }: AdminSidebarProps) {
+  const { adminProfile } = useSite();
+  const displayName = adminProfile?.name || "Administrador";
+  const displayEmail = adminProfile?.email || "";
+  const displayRole = adminProfile?.role || "super";
   return (
     <aside
       className={`hidden md:flex w-64 shrink-0 h-screen flex-col border-r transition-colors z-20 overflow-hidden ${
@@ -92,10 +97,10 @@ export function AdminSidebar({
                   isDark ? "text-white" : "text-stone-900"
                 }`}
               >
-                Pablo García
+                {displayName}
               </span>
               <span className="text-[9px] font-mono font-bold uppercase text-[#b79f53] bg-[#b79f53]/10 px-1.5 py-0.5 rounded">
-                Admin
+                {displayRole}
               </span>
             </div>
             <span
@@ -103,7 +108,7 @@ export function AdminSidebar({
                 isDark ? "text-slate-400" : "text-stone-500"
               }`}
             >
-              admin@werbsolutions.com
+              {displayEmail}
             </span>
           </div>
         </div>

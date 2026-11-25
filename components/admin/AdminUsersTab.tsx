@@ -45,8 +45,8 @@ export function AdminUsersTab({
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    role: "Field Master Electrician" as AdminUser["role"],
-    password: "",
+    identification: "",
+    role: "tec" as AdminUser["role"],
   });
 
   const loadUsers = useCallback(async () => {
@@ -79,6 +79,7 @@ export function AdminUsersTab({
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          identification: formData.identification,
           role: formData.role,
         }),
       });
@@ -88,8 +89,8 @@ export function AdminUsersTab({
         setFormData({
           name: "",
           email: "",
-          role: "Field Master Electrician",
-          password: "",
+          identification: "",
+          role: "tec",
         });
         setFeedbackMsg("Usuario creado exitosamente");
         setTimeout(() => setFeedbackMsg(null), 3000);
@@ -207,7 +208,7 @@ export function AdminUsersTab({
           </div>
 
           <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-            {["all", "Master Admin", "DOB Expediter", "Field Master Electrician", "Dispatcher"].map(
+            {["all", "super", "tec"].map(
               (r) => (
                 <button
                   key={r}
@@ -274,6 +275,7 @@ export function AdminUsersTab({
                     </div>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-400 mt-0.5">
                       <span className="font-mono">{user.email}</span>
+                      {user.identification && <><span>•</span><span className="font-mono text-amber-500">ID: {user.identification}</span></>}
                       <span>•</span>
                       <span className="text-[#b79f53] font-medium">{user.role}</span>
                       <span>•</span>
@@ -297,7 +299,7 @@ export function AdminUsersTab({
                     {user.status === "active" ? "Suspender" : "Reactivar"}
                   </button>
 
-                  {user.email !== "admin@werbsolutions.com" && (
+                  {user.role !== "super" && (
                     <button
                       type="button"
                       onClick={() => handleDeleteUser(user.id, user.name)}
@@ -367,7 +369,7 @@ export function AdminUsersTab({
                   <input
                     type="email"
                     required
-                    placeholder="carlos@werbsolutions.com"
+                    placeholder="correo@dominio.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs border focus:outline-none focus:border-[#b79f53] ${
@@ -396,25 +398,24 @@ export function AdminUsersTab({
                         : "border-slate-200 bg-slate-50 text-slate-900 focus:bg-white"
                     }`}
                   >
-                    <option value="Master Admin">Master Admin</option>
-                    <option value="DOB Expediter">DOB Expediter</option>
-                    <option value="Field Master Electrician">Field Master Electrician</option>
-                    <option value="Dispatcher">Dispatcher</option>
+                    <option value="tec">tec</option>
+                    <option value="super">super</option>
                   </select>
                 </div>
               </div>
 
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider mb-1 text-slate-400">
-                  Contraseña Temporal
+                  Identificación inicial
                 </label>
                 <div className="relative">
                   <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 pointer-events-none" />
                   <input
-                    type="password"
-                    placeholder="••••••••••••"
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    type="text"
+                    required
+                    placeholder="Documento de identidad"
+                    value={formData.identification}
+                    onChange={(e) => setFormData({ ...formData, identification: e.target.value })}
                     className={`w-full pl-9 pr-3 py-2 rounded-xl text-xs border focus:outline-none focus:border-[#b79f53] ${
                       isDark
                         ? "border-white/10 bg-black/40 text-white"
@@ -422,6 +423,7 @@ export function AdminUsersTab({
                     }`}
                   />
                 </div>
+                <p className="mt-1 text-[10px] text-slate-500">Se usa como clave inicial y debe cambiarse en el primer acceso.</p>
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">

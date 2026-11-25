@@ -30,6 +30,7 @@ export default function AdminPage() {
     isAuthenticated,
     login,
     logout,
+    adminProfile,
   } = useSite();
 
   const [activeTab, setActiveTab] = useState<AdminTab>("content");
@@ -235,8 +236,8 @@ export default function AdminPage() {
                 PG
               </div>
               <div className="min-w-0">
-                <div className="text-xs font-bold text-white">Pablo García</div>
-                <div className="text-[10px] font-mono text-slate-400">admin@werbsolutions.com</div>
+                <div className="text-xs font-bold text-white">{adminProfile?.name || "Administrador"}</div>
+                {adminProfile?.email && <div className="text-[10px] font-mono text-slate-400">{adminProfile.email}</div>}
               </div>
             </div>
 

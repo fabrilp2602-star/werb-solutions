@@ -78,7 +78,10 @@ export interface AdminUser {
   id: string;
   name: string;
   email: string;
-  role: 'Master Admin' | 'DOB Expediter' | 'Field Master Electrician' | 'Dispatcher';
+  identification?: string;
+  role: 'super' | 'admin' | 'tec' | 'Master Admin' | 'DOB Expediter' | 'Field Master Electrician' | 'Dispatcher';
   status: 'active' | 'suspended';
   lastLogin: string;
+  forcePasswordChange?: boolean;
+  emailVerified?: boolean;
 }

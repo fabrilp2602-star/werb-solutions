@@ -1,74 +1,93 @@
-import { createHash, randomBytes, scryptSync, timingSafeEqual } from "crypto";
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers';
+import type { DecodedIdToken } from 'firebase-admin/auth';
+import { getFirebaseAdminAuth, getFirebaseAdminDb, isFirebaseAdminConfigured } from '@/lib/firebase/admin';
 
-const COOKIE = "werb_admin_session";
-const TTL_SECONDS = 60 * 60 * 12;
+const COOKIE = 'werb_admin_session';
+const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 5;
 
-function config() {
+export type AdminRole = 'super' | 'admin' | 'tec';
+
+export interface AdminProfile {
+  uid: string;
+  name: string;
+  email: string;
+  identification: string;
+  role: AdminRole;
+  forcePasswordChange: boolean;
+  emailVerified: boolean;
+}
+
+function normalizeRole(value: unknown): AdminRole | null {
+  if (value === 'super' || value === 'admin' || value === 'tec') return value;
+  return null;
+}
+
+async function profileFromToken(token: DecodedIdToken): Promise<AdminProfile | null> {
+  const db = getFirebaseAdminDb();
+  const candidates = [
+    await db.collection('user').doc(token.uid).get(),
+    await db.collection('users').doc(token.uid).get(),
+  ];
+  const doc = candidates.find((candidate) => candidate.exists);
+  const data = doc?.data() || {};
+  const role = normalizeRole(data.role) || normalizeRole(token.role) || normalizeRole(token.adminRole);
+  if (role !== 'super' && role !== 'admin') return null;
+
   return {
-    email: process.env.ADMIN_EMAIL?.trim().toLowerCase(),
-    hash: process.env.ADMIN_PASSWORD_HASH,
-    secret: process.env.ADMIN_SESSION_SECRET,
+    uid: token.uid,
+    name: String(data.name || token.name || 'Administrador'),
+    email: String(token.email || data.email || ''),
+    identification: String(data.identification || ''),
+    role,
+    forcePasswordChange: data.forcePasswordChange === true,
+    emailVerified: token.email_verified === true,
   };
 }
 
-export function hashPassword(password: string, salt = randomBytes(16).toString("hex")) {
-  const derived = scryptSync(password, salt, 64).toString("hex");
-  return `scrypt:${salt}:${derived}`;
+export async function authenticateFirebaseToken(idToken: string) {
+  if (!isFirebaseAdminConfigured() || !idToken) return null;
+  try {
+    const decoded = await getFirebaseAdminAuth().verifyIdToken(idToken);
+    return await profileFromToken(decoded);
+  } catch {
+    return null;
+  }
 }
 
-function verifyPassword(password: string, encoded?: string) {
-  if (!encoded?.startsWith("scrypt:")) return false;
-  const [, salt, expected] = encoded.split(":");
-  if (!salt || !expected) return false;
-  const actual = scryptSync(password, salt, 64);
-  const target = Buffer.from(expected, "hex");
-  return target.length === actual.length && timingSafeEqual(actual, target);
-}
-
-function signature(value: string, secret: string) {
-  return createHash("sha256").update(`${value}.${secret}`).digest("hex");
-}
-
-export function isAuthConfigured() {
-  const { email, hash, secret } = config();
-  return Boolean(email && hash && secret);
-}
-
-export function verifyCredentials(email: string, password: string) {
-  const current = config();
-  return Boolean(
-    current.email && current.hash && current.secret &&
-      email.trim().toLowerCase() === current.email &&
-      verifyPassword(password, current.hash),
-  );
-}
-
-export async function createSession(email: string) {
-  const { secret } = config();
-  if (!secret) throw new Error("ADMIN_SESSION_SECRET is not configured");
-  const expires = Math.floor(Date.now() / 1000) + TTL_SECONDS;
-  const value = `${email.toLowerCase()}.${expires}`;
-  (await cookies()).set(COOKIE, `${value}.${signature(value, secret)}`, {
-    httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax",
-    path: "/", maxAge: TTL_SECONDS,
+export async function createSession(idToken: string) {
+  const profile = await authenticateFirebaseToken(idToken);
+  if (!profile) return null;
+  const sessionCookie = await getFirebaseAdminAuth().createSessionCookie(idToken, {
+    expiresIn: SESSION_TTL_MS,
   });
+  (await cookies()).set(COOKIE, sessionCookie, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: SESSION_TTL_MS / 1000,
+  });
+  return profile;
 }
 
 export async function clearSession() {
-  (await cookies()).set(COOKIE, "", { httpOnly: true, expires: new Date(0), path: "/" });
+  (await cookies()).set(COOKIE, '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    expires: new Date(0),
+    path: '/',
+  });
 }
 
 export async function requireAdmin() {
-  const { secret } = config();
+  if (!isFirebaseAdminConfigured()) return null;
   const raw = (await cookies()).get(COOKIE)?.value;
-  if (!secret || !raw) return null;
-  const parts = raw.split(".");
-  if (parts.length !== 3) return null;
-  const [email, expiry, provided] = parts;
-  const value = `${email}.${expiry}`;
-  if (Number(expiry) < Math.floor(Date.now() / 1000)) return null;
-  const expected = signature(value, secret);
-  return provided === expected ? email : null;
+  if (!raw) return null;
+  try {
+    const decoded = await getFirebaseAdminAuth().verifySessionCookie(raw, true);
+    return await profileFromToken(decoded);
+  } catch {
+    return null;
+  }
 }
-

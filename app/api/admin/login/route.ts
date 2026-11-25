@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
-import { createSession, isAuthConfigured, verifyCredentials } from "@/lib/auth";
+import { createSession } from "@/lib/auth";
 
 export async function POST(request: Request) {
-  if (!isAuthConfigured()) return NextResponse.json({ success: false, error: "Admin auth is not configured." }, { status: 503 });
   const body = await request.json().catch(() => ({}));
-  if (!verifyCredentials(String(body.email || ""), String(body.password || ""))) {
-    return NextResponse.json({ success: false, error: "Invalid credentials." }, { status: 401 });
-  }
-  await createSession(String(body.email));
-  return NextResponse.json({ success: true });
+  const profile = await createSession(String(body.idToken || ""));
+  if (!profile) return NextResponse.json({ success: false, error: "Cuenta Firebase sin permisos de administrador." }, { status: 401 });
+  return NextResponse.json({ success: true, profile });
 }
 

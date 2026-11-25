@@ -18,7 +18,7 @@ export function AdminLoginForm({
   onLoginSuccess,
   login,
 }: AdminLoginFormProps) {
-  const [username, setUsername] = useState("admin@werbsolutions.com");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
 
@@ -28,16 +28,6 @@ export function AdminLoginForm({
     if (!success) {
       setLoginError(true);
     } else {
-      setLoginError(false);
-      onLoginSuccess();
-    }
-  };
-
-  const handleFastPass = async (u: string, p: string) => {
-    setUsername(u);
-    setPassword(p);
-    const success = await login(u, p);
-    if (success) {
       setLoginError(false);
       onLoginSuccess();
     }
@@ -122,7 +112,7 @@ export function AdminLoginForm({
               required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="admin@werbsolutions.com"
+              placeholder="Correo configurado por el administrador"
               className={`w-full rounded-xl border px-4 py-2.5 text-xs transition-colors focus:outline-none focus:border-[#b79f53] ${
                 isDark
                   ? "border-white/10 bg-black/40 text-white placeholder-slate-500"

@@ -1,8 +1,11 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 import { Locale, TRANSLATIONS, TranslationDictionary } from "@/data/i18n";
+import type { AdminProfile } from "@/lib/auth";
+import { firebaseAuth } from "@/lib/firebase/client";
 
 export interface CustomServiceItem {
   id: string;
@@ -97,6 +100,7 @@ interface SiteContextType {
   isAuthenticated: boolean;
   login: (u: string, p: string) => Promise<boolean>;
   logout: () => Promise<void>;
+  adminProfile: AdminProfile | null;
 }
 
 const SiteContext = createContext<SiteContextType>({
@@ -112,6 +116,7 @@ const SiteContext = createContext<SiteContextType>({
   isAuthenticated: false,
   login: async () => false,
   logout: async () => {},
+  adminProfile: null,
 });
 
 export function SiteProvider({ children }: { children: React.ReactNode }) {
@@ -120,6 +125,7 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("en");
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [mounted, setMounted] = useState(false);
+  const [adminProfile, setAdminProfile] = useState<AdminProfile | null>(null);
 
   useEffect(() => {
     try {
@@ -151,7 +157,19 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
         setLocaleState("en");
       }
 
-      fetch("/api/admin/session").then((res) => setIsAuthenticated(res.ok)).catch(() => setIsAuthenticated(false));
+      fetch("/api/admin/session").then(async (res) => {
+        if (!res.ok) {
+          setIsAuthenticated(false);
+          setAdminProfile(null);
+          return;
+        }
+        const data = await res.json();
+        setIsAuthenticated(true);
+        setAdminProfile(data.profile || null);
+      }).catch(() => {
+        setIsAuthenticated(false);
+        setAdminProfile(null);
+      });
     } catch (e) {
       console.error(e);
     }
@@ -224,15 +242,34 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
   }, [theme, mounted]);
 
   const login = async (u: string, p: string): Promise<boolean> => {
-    const res = await fetch("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: u, password: p }) });
-    const success = res.ok;
-    setIsAuthenticated(success);
-    return success;
+    try {
+      const credential = await signInWithEmailAndPassword(firebaseAuth, u.trim(), p);
+      const idToken = await credential.user.getIdToken(true);
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken }),
+      });
+      if (!res.ok) {
+        await signOut(firebaseAuth);
+        setIsAuthenticated(false);
+        return false;
+      }
+      const data = await res.json();
+      setIsAuthenticated(true);
+      setAdminProfile(data.profile || null);
+      return true;
+    } catch {
+      setIsAuthenticated(false);
+      return false;
+    }
   };
 
   const logout = async () => {
     await fetch("/api/admin/logout", { method: "POST" });
+    await signOut(firebaseAuth).catch(() => undefined);
     setIsAuthenticated(false);
+    setAdminProfile(null);
   };
 
   const setLocale = (next: Locale) => {
@@ -252,7 +289,7 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
   const t = TRANSLATIONS[locale] || TRANSLATIONS.en;
 
   return (
-    <SiteContext.Provider value={{ texts, updateTexts, resetTexts, theme, toggleTheme, setTheme, locale, setLocale, t, isAuthenticated, login, logout }}>
+    <SiteContext.Provider value={{ texts, updateTexts, resetTexts, theme, toggleTheme, setTheme, locale, setLocale, t, isAuthenticated, login, logout, adminProfile }}>
       {children}
     </SiteContext.Provider>
   );
