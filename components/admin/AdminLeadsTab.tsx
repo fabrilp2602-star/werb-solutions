@@ -38,6 +38,8 @@ interface AdminLeadsTabProps {
   setLeadSearch: (s: string) => void;
   loadLeads: () => Promise<void>;
   updateLeadStatus: (id: string, newStatus: LeadItem["status"]) => Promise<void>;
+  events: { type: string; createdAt: string; destination?: string }[];
+  loadEvents: () => Promise<void>;
 }
 
 export function AdminLeadsTab({
@@ -48,6 +50,8 @@ export function AdminLeadsTab({
   setLeadSearch,
   loadLeads,
   updateLeadStatus,
+  events,
+  loadEvents,
 }: AdminLeadsTabProps) {
   const [leadStatusFilter, setLeadStatusFilter] = useState<
     "all" | "pending" | "contacted" | "dispatched" | "closed"
@@ -70,6 +74,32 @@ export function AdminLeadsTab({
 
   return (
     <div className="space-y-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
+        {["phone_click", "whatsapp_click", "quote_click", "lead_started", "lead_submitted"].map((type) => (
+          <div key={type} className={`rounded-2xl border p-3 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-200 bg-white shadow-sm"}`}>
+            <div className="text-[10px] uppercase font-bold text-slate-400">{type.replaceAll("_", " ")}</div>
+            <div className="mt-1 text-2xl font-black text-[#b79f53]">{events.filter((event) => event.type === type).length}</div>
+          </div>
+        ))}
+      </div>
+      <div className={`flex items-center justify-between rounded-xl border px-3 py-2 text-[11px] ${isDark ? "border-white/10 bg-white/[0.03] text-slate-400" : "border-slate-200 bg-white text-slate-500"}`}>
+        <span>Conversiones registradas con consentimiento: {events.length}</span>
+        <button type="button" onClick={loadEvents} className="font-bold text-[#b79f53] hover:underline">Actualizar métricas</button>
+      </div>
+      {events.length > 0 && (
+        <div className={`rounded-2xl border overflow-hidden ${isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-200 bg-white shadow-sm"}`}>
+          <div className="px-4 py-3 border-b border-inherit text-[11px] font-bold uppercase tracking-wider">Actividad reciente de contactos</div>
+          <div className="divide-y divide-inherit">
+            {events.slice(0, 8).map((event, index) => (
+              <div key={`${event.createdAt}-${index}`} className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 text-xs">
+                <span className="font-bold text-[#b79f53]">{event.type.replaceAll("_", " ")}</span>
+                <span className="text-slate-400">{event.destination || "site"}</span>
+                <time className="font-mono text-slate-500">{new Date(event.createdAt).toLocaleString("en-US")}</time>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
       {/* ─────────────────────────────────────────────────────────────
           1. EMPTY STATE CUANDO leads.length === 0
       ───────────────────────────────────────────────────────────── */}

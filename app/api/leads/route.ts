@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { requireAdmin } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -46,13 +47,16 @@ function saveLeads(leads: LeadRecord[]) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
     fs.writeFileSync(DATA_FILE, JSON.stringify(leads, null, 2), 'utf-8');
+    return true;
   } catch (err) {
     console.error('Error saving leads:', err);
+    return false;
   }
 }
 
 // GET /api/leads - Returns all leads sorted by date desc
 export async function GET() {
+  if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
   const leads = getLeads();
   leads.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   return NextResponse.json({ success: true, count: leads.length, leads });
@@ -88,7 +92,7 @@ export async function POST(request: Request) {
     };
 
     leads.unshift(newLead);
-    saveLeads(leads);
+    if (!saveLeads(leads)) return NextResponse.json({ success: false, error: 'Lead storage unavailable.' }, { status: 503 });
 
     return NextResponse.json({ success: true, lead: newLead }, { status: 201 });
   } catch (err) {
@@ -100,10 +104,11 @@ export async function POST(request: Request) {
 // PATCH /api/leads - Update status of a lead
 export async function PATCH(request: Request) {
   try {
+    if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     const body = await request.json();
     const { id, status } = body;
 
-    if (!id || !status) {
+    if (!id || !['pending', 'contacted', 'dispatched', 'closed'].includes(status)) {
       return NextResponse.json({ success: false, error: 'id and status required' }, { status: 400 });
     }
 
@@ -114,7 +119,7 @@ export async function PATCH(request: Request) {
     }
 
     leads[index].status = status;
-    saveLeads(leads);
+    if (!saveLeads(leads)) return NextResponse.json({ success: false, error: 'Lead storage unavailable.' }, { status: 503 });
 
     return NextResponse.json({ success: true, lead: leads[index] });
   } catch (err) {

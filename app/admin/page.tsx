@@ -47,6 +47,7 @@ export default function AdminPage() {
   const [leads, setLeads] = useState<LeadItem[]>([]);
   const [loadingLeads, setLoadingLeads] = useState(false);
   const [leadSearch, setLeadSearch] = useState("");
+  const [events, setEvents] = useState<{ type: string; createdAt: string; destination?: string }[]>([]);
 
   // Users count
   const [usersCount, setUsersCount] = useState<number>(2);
@@ -80,12 +81,17 @@ export default function AdminPage() {
     }
   }, []);
 
+  const loadEvents = useCallback(async () => {
+    try { const res = await fetch("/api/events"); const data = await res.json(); if (res.ok) setEvents(data.events || []); } catch (e) { console.error("Error loading events:", e); }
+  }, []);
+
   useEffect(() => {
     if (isAuthenticated) {
       loadLeads();
+      loadEvents();
       loadUsersCount();
     }
-  }, [isAuthenticated, loadLeads, loadUsersCount]);
+  }, [isAuthenticated, loadLeads, loadEvents, loadUsersCount]);
 
   const updateLeadStatus = async (
     id: string,
@@ -126,6 +132,7 @@ export default function AdminPage() {
         toggleTheme={toggleTheme}
         onLoginSuccess={() => {
           loadLeads();
+          loadEvents();
           loadUsersCount();
         }}
         login={login}
@@ -294,6 +301,8 @@ export default function AdminPage() {
                 setLeadSearch={setLeadSearch}
                 loadLeads={loadLeads}
                 updateLeadStatus={updateLeadStatus}
+                events={events}
+                loadEvents={loadEvents}
               />
             )}
 

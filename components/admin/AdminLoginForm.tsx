@@ -9,7 +9,7 @@ interface AdminLoginFormProps {
   isDark: boolean;
   toggleTheme: () => void;
   onLoginSuccess: () => void;
-  login: (u: string, p: string) => boolean;
+  login: (u: string, p: string) => Promise<boolean>;
 }
 
 export function AdminLoginForm({
@@ -22,9 +22,9 @@ export function AdminLoginForm({
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    const success = login(username, password);
+    const success = await login(username, password);
     if (!success) {
       setLoginError(true);
     } else {
@@ -33,10 +33,10 @@ export function AdminLoginForm({
     }
   };
 
-  const handleFastPass = (u: string, p: string) => {
+  const handleFastPass = async (u: string, p: string) => {
     setUsername(u);
     setPassword(p);
-    const success = login(u, p);
+    const success = await login(u, p);
     if (success) {
       setLoginError(false);
       onLoginSuccess();
@@ -161,28 +161,6 @@ export function AdminLoginForm({
           </button>
         </form>
 
-        {/* Quick Demo Access Pills */}
-        <div className="mt-4 pt-4 border-t border-slate-200/50 dark:border-white/10 text-center">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block mb-2">
-            Fast Demo Access
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <button
-              type="button"
-              onClick={() => handleFastPass("pablofgarciaf@gmail.com", "werb2026")}
-              className="rounded-lg border border-[#b79f53]/40 bg-[#b79f53]/15 px-3 py-1.5 text-xs font-mono font-bold text-[#b79f53] dark:text-[#ece8a6] hover:bg-[#b79f53]/25 active:scale-95 transition-all cursor-pointer"
-            >
-              ⚡ Pablo García (Direct Pass)
-            </button>
-            <button
-              type="button"
-              onClick={() => handleFastPass("admin@werbsolutions.com", "admin123")}
-              className="rounded-lg border border-slate-300 dark:border-white/20 bg-white/10 px-3 py-1.5 text-xs font-mono font-bold text-slate-700 dark:text-slate-200 hover:text-white hover:bg-white/15 active:scale-95 transition-all cursor-pointer"
-            >
-              ⚡ Admin Master (Direct Pass)
-            </button>
-          </div>
-        </div>
 
         <div className="mt-6 text-center">
           <Link

@@ -95,8 +95,8 @@ interface SiteContextType {
   setLocale: (l: Locale) => void;
   t: TranslationDictionary;
   isAuthenticated: boolean;
-  login: (u: string, p: string) => boolean;
-  logout: () => void;
+  login: (u: string, p: string) => Promise<boolean>;
+  logout: () => Promise<void>;
 }
 
 const SiteContext = createContext<SiteContextType>({
@@ -110,8 +110,8 @@ const SiteContext = createContext<SiteContextType>({
   setLocale: () => {},
   t: TRANSLATIONS.en,
   isAuthenticated: false,
-  login: () => false,
-  logout: () => {},
+  login: async () => false,
+  logout: async () => {},
 });
 
 export function SiteProvider({ children }: { children: React.ReactNode }) {
@@ -151,8 +151,7 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
         setLocaleState("en");
       }
 
-      const authState = sessionStorage.getItem("werb_admin_auth");
-      if (authState === "true") setIsAuthenticated(true);
+      fetch("/api/admin/session").then((res) => setIsAuthenticated(res.ok)).catch(() => setIsAuthenticated(false));
     } catch (e) {
       console.error(e);
     }
@@ -224,38 +223,16 @@ export function SiteProvider({ children }: { children: React.ReactNode }) {
     }
   }, [theme, mounted]);
 
-  const login = (u: string, p: string): boolean => {
-    const trimmedUser = u.trim().toLowerCase();
-    // Authorized master accounts or quick demo pass for onboarding video
-    if (
-      trimmedUser === "pablofgarciaf@gmail.com" ||
-      trimmedUser === "admin@werbsolutions.com" ||
-      trimmedUser === "admin"
-    ) {
-      setIsAuthenticated(true);
-      try {
-        sessionStorage.setItem("werb_admin_auth", "true");
-        sessionStorage.setItem("werb_admin_user", trimmedUser);
-      } catch (e) {}
-      return true;
-    }
-    // Also allow entry if valid email is entered
-    if (trimmedUser.includes("@")) {
-      setIsAuthenticated(true);
-      try {
-        sessionStorage.setItem("werb_admin_auth", "true");
-        sessionStorage.setItem("werb_admin_user", trimmedUser);
-      } catch (e) {}
-      return true;
-    }
-    return false;
+  const login = async (u: string, p: string): Promise<boolean> => {
+    const res = await fetch("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: u, password: p }) });
+    const success = res.ok;
+    setIsAuthenticated(success);
+    return success;
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await fetch("/api/admin/logout", { method: "POST" });
     setIsAuthenticated(false);
-    try {
-      sessionStorage.removeItem("werb_admin_auth");
-    } catch (e) {}
   };
 
   const setLocale = (next: Locale) => {

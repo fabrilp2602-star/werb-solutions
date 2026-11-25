@@ -35,6 +35,7 @@ export default function AnalyticsConsent() {
 
   const handleChoice = (choice: "accepted" | "rejected") => {
     localStorage.setItem("werb_cookie_consent", choice);
+    window.dispatchEvent(new Event("werb-consent-changed"));
     setPreference(choice);
     setShowModal(false);
   };

@@ -1,9 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Script from "next/script";
 
 export function AnalyticsTracking() {
+  const [consented, setConsented] = useState(false);
+  useEffect(() => {
+    const refresh = () => setConsented(localStorage.getItem("werb_cookie_consent") === "accepted");
+    refresh();
+    window.addEventListener("werb-consent-changed", refresh);
+    const onClick = (event: MouseEvent) => {
+      const target = (event.target as HTMLElement).closest<HTMLAnchorElement>("a[href]");
+      if (!target) return;
+      const href = target.href;
+      const type = href.startsWith("tel:") ? "phone_click" : href.includes("wa.me") ? "whatsapp_click" : target.href.includes("#nyc-lead-wizard") ? "quote_click" : null;
+      if (type) void trackEvent(type, href);
+    };
+    document.addEventListener("click", onClick, true);
+    return () => { window.removeEventListener("werb-consent-changed", refresh); document.removeEventListener("click", onClick, true); };
+  }, []);
+  if (!consented) return null;
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
   const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
@@ -62,4 +78,9 @@ export function AnalyticsTracking() {
       )}
     </>
   );
+}
+
+export async function trackEvent(type: "phone_click" | "whatsapp_click" | "lead_started" | "lead_submitted" | "quote_click", destination = "") {
+  if (typeof window === "undefined" || localStorage.getItem("werb_cookie_consent") !== "accepted") return;
+  try { await fetch("/api/events", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type, destination, path: window.location.pathname }) }); } catch {}
 }

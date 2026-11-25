@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { AdminUser } from '@/types/admin';
+import { requireAdmin } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,6 +58,7 @@ function saveUsers(users: AdminUser[]) {
 
 // GET /api/users
 export async function GET() {
+  if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
   const users = getUsers();
   return NextResponse.json({ success: true, count: users.length, users });
 }
@@ -64,6 +66,7 @@ export async function GET() {
 // POST /api/users - Create new administrative user
 export async function POST(req: Request) {
   try {
+    if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     const body = await req.json();
     const { name, email, role, status = 'active' } = body;
 
@@ -108,6 +111,7 @@ export async function POST(req: Request) {
 // DELETE /api/users?id=...
 export async function DELETE(req: Request) {
   try {
+    if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
@@ -129,6 +133,7 @@ export async function DELETE(req: Request) {
 // PATCH /api/users - Update user status or role
 export async function PATCH(req: Request) {
   try {
+    if (!(await requireAdmin())) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     const body = await req.json();
     const { id, status, role } = body;
 
